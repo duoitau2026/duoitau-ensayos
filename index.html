@@ -96,7 +96,7 @@ const canciones = [
   },
   {
     titulo: "Dueña del tiempo",
-    archivo: "02.mp3"
+    archivo: "10 dueña del tiempo pa german.mp3"
   },
   {
     titulo: "Grieta",
@@ -160,7 +160,7 @@ canciones.forEach((cancion, indice) => {
   aviso.className = "estado";
 
   aviso.textContent =
-    indice === 0
+    indice < 2
     ? "Cargando pista de ensayo..."
     : "Audio pendiente de cargar.";
 
