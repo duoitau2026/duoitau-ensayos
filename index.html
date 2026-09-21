@@ -1,13 +1,142 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dúo Itaú - Sala de Ensayos</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dúo Itaú - Sala de Ensayos</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #111827;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 35px 15px;
+  background: #1f2937;
+}
+
+h1 {
+  color: #facc15;
+  margin-bottom: 5px;
+}
+
+header p {
+  color: #d1d5db;
+}
+
+main {
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
+}
+
+.cancion {
+  background: #1f2937;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.cancion h2 {
+  color: #facc15;
+  font-size: 20px;
+}
+
+audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+button {
+  background: #facc15;
+  color: #111827;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #9ca3af;
+}
+</style>
 </head>
+
 <body>
-    <h1>DÚO ITAÚ</h1>
-    <h2>Sala de Ensayos Virtual</h2>
-    <p>Bienvenidos, músicos de Dúo Itaú.</p>
+
+<header>
+<h1>DÚO ITAÚ</h1>
+<h2>SALA DE ENSAYOS VIRTUAL</h2>
+<p>Presentación del disco LUNA NUEVA</p>
+<p>Material de estudio para los músicos</p>
+</header>
+
+<main id="canciones"></main>
+
+<footer>
+Dúo Itaú - Luna Nueva 2026
+</footer>
+
+<script>
+const canciones = [
+"Luna Nueva",
+"Dueña del tiempo",
+"Grieta",
+"El simple valor",
+"Mejor conmigo",
+"Milagro",
+"Pasajera de la soledad",
+"Indiferencia plena",
+"Tierra",
+"Copla ancestral"
+];
+
+const contenedor = document.getElementById("canciones");
+
+canciones.forEach((titulo, indice) => {
+  const numero = String(indice + 1).padStart(2, "0");
+
+  const seccion = document.createElement("section");
+  seccion.className = "cancion";
+
+  const nombre = document.createElement("h2");
+  nombre.textContent = numero + " - " + titulo;
+
+  const descripcion = document.createElement("p");
+  descripcion.textContent = "Pista completa de ensayo";
+
+  const reproductor = document.createElement("audio");
+  reproductor.controls = true;
+  reproductor.preload = "none";
+  reproductor.src = "audios/" + numero + ".mp3";
+
+  const aviso = document.createElement("p");
+  aviso.textContent = "Audio pendiente de cargar.";
+
+  reproductor.addEventListener("canplay", () => {
+    aviso.textContent = "";
+  });
+
+  reproductor.addEventListener("error", () => {
+    aviso.textContent = "Audio pendiente de cargar.";
+  });
+
+  seccion.append(nombre, descripcion, reproductor, aviso);
+  contenedor.appendChild(seccion);
+});
+</script>
+
 </body>
 </html>
