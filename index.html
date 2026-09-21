@@ -22,9 +22,9 @@ body {
     ),
     url("image.png");
   background-position: center top;
-background-size: auto 450px;
-background-attachment: fixed;
-background-repeat: no-repeat;
+  background-size: auto 450px;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: white;
   font-family: Arial, sans-serif;
 }
@@ -131,7 +131,7 @@ footer {
   <h1>DÚO ITAÚ</h1>
   <h2>PISTAS PARA GERMÁN</h2>
   <p>Presentación del disco LUNA NUEVA</p>
-  <p>Vamooo Papirri!!!</p>
+  <p>Material de estudio para los músicos</p>
 </header>
 
 <main id="canciones"></main>
@@ -142,48 +142,93 @@ footer {
 
 <script>
 
-// LISTA DE CANCIONES Y ARCHIVOS
+// CANCIONES EN EL ORDEN DEL SHOW
 
 const canciones = [
   {
-    titulo: "Luna Nueva",
-    archivo: "01 LUNA NUEVA pa german.mp3"
+    titulo: "Mariel (solista)",
+    archivo: "",
+    participa: false
   },
   {
-    titulo: "Dueña del tiempo",
-    archivo: "10 dueña del tiempo pa german.mp3"
+    titulo: "Claudio (solista)",
+    archivo: "",
+    participa: false
+  },
+  {
+    titulo: "El cosechero",
+    archivo: "",
+    participa: false
+  },
+  {
+    titulo: "Salamanqueando pa' mí",
+    archivo: "",
+    participa: false
+  },
+  {
+    titulo: "Luna Nueva",
+    archivo: "01 LUNA NUEVA pa german.mp3",
+    participa: true
   },
   {
     titulo: "Grieta",
-    archivo: "04 GRIETA CLOCK pa german.mp3"
-  },
-  {
-    titulo: "El simple valor",
-    archivo: "el simple valor pista clock pa german.mp3"
+    archivo: "04 GRIETA CLOCK pa german.mp3",
+    participa: true
   },
   {
     titulo: "Mejor conmigo",
-    archivo: "mejor conmigo pista clock pa german.mp3"
+    archivo: "mejor conmigo pista clock pa german.mp3",
+    participa: true
   },
   {
-    titulo: "Milagro",
-    archivo: ""
-  },
-  {
-    titulo: "Pasajera de la soledad",
-    archivo: ""
+    titulo: "El simple valor",
+    archivo: "el simple valor pista clock pa german.mp3",
+    participa: true
   },
   {
     titulo: "Indiferencia plena",
-    archivo: ""
+    archivo: "",
+    participa: true
+  },
+  {
+    titulo: "Pasajera",
+    archivo: "",
+    participa: true
   },
   {
     titulo: "Tierra",
-    archivo: ""
+    archivo: "",
+    participa: true
   },
   {
     titulo: "Copla ancestral",
-    archivo: ""
+    archivo: "",
+    participa: true
+  },
+  {
+    titulo: "Milagro",
+    archivo: "",
+    participa: true
+  },
+  {
+    titulo: "Dueña del tiempo",
+    archivo: "10 dueña del tiempo pa german.mp3",
+    participa: true
+  },
+  {
+    titulo: "Luz",
+    archivo: "",
+    participa: true
+  },
+  {
+    titulo: "Ya sé (cierre)",
+    archivo: "",
+    participa: true
+  },
+  {
+    titulo: "A pura ushuta",
+    archivo: "",
+    participa: true
   }
 ];
 
@@ -201,7 +246,7 @@ function obtenerContexto() {
   return contextoAudio;
 }
 
-// CREAR REPRODUCTORES
+// CREAR LISTA Y REPRODUCTORES
 
 const contenedor =
   document.getElementById("canciones");
@@ -222,17 +267,30 @@ canciones.forEach((cancion, indice) => {
   nombre.textContent =
     numero + " - " + cancion.titulo;
 
-  const descripcion =
-    document.createElement("p");
+  seccion.appendChild(nombre);
 
-  descripcion.textContent =
-    "Pista completa de ensayo";
+  // TEMAS EN LOS QUE GERMÁN NO PARTICIPA
 
-  seccion.append(nombre, descripcion);
+  if (!cancion.participa) {
 
-  if (cancion.archivo) {
+    const aviso =
+      document.createElement("p");
+
+    aviso.className = "estado";
+    aviso.textContent =
+      "Germán no participa en este tema.";
+
+    seccion.appendChild(aviso);
+
+  } else if (cancion.archivo) {
 
     // REPRODUCTOR
+
+    const descripcion =
+      document.createElement("p");
+
+    descripcion.textContent =
+      "Pista completa de ensayo";
 
     const reproductor =
       document.createElement("audio");
@@ -244,7 +302,7 @@ canciones.forEach((cancion, indice) => {
       "audios/" +
       encodeURIComponent(cancion.archivo);
 
-    // MEZCLADOR ESTEREO
+    // MEZCLADOR ESTÉREO
 
     const contexto = obtenerContexto();
 
@@ -265,13 +323,12 @@ canciones.forEach((cancion, indice) => {
     const mezclador =
       contexto.createChannelMerger(2);
 
-    // GANANCIA INICIAL AUMENTADA
+    // VOLUMEN MÁXIMO AUMENTADO
 
     gananciaL.gain.value = 2;
     gananciaR.gain.value = 2;
 
-    // CANAL IZQUIERDO A SALIDA IZQUIERDA
-    // CANAL DERECHO A SALIDA DERECHA
+    // MANTENER CADA CANAL EN SU LADO
 
     fuente.connect(divisor);
 
@@ -295,7 +352,7 @@ canciones.forEach((cancion, indice) => {
       contexto.destination
     );
 
-    // ACTIVAR AUDIO AL REPRODUCIR
+    // ACTIVAR EL AUDIO AL REPRODUCIR
 
     reproductor.addEventListener(
       "play",
@@ -428,12 +485,16 @@ canciones.forEach((cancion, indice) => {
     );
 
     seccion.append(
+      descripcion,
       reproductor,
       panel,
       aviso
     );
 
   } else {
+
+    // TEMA EN EL QUE PARTICIPA,
+    // PERO TODAVÍA NO TIENE AUDIO
 
     const aviso =
       document.createElement("p");
