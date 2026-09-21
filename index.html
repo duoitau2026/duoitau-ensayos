@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dúo Itaú - Sala de Ensayos</title>
+<title>Dúo Itaú - Pistas para Germán</title>
 
 <style>
 * {
@@ -14,7 +14,17 @@
 
 body {
   margin: 0;
-  background: #111827;
+  background-color: #111827;
+  background-image:
+    linear-gradient(
+      rgba(17, 24, 39, 0.65),
+      rgba(17, 24, 39, 0.65)
+    ),
+    url("image.png");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: white;
   font-family: Arial, sans-serif;
 }
@@ -22,7 +32,7 @@ body {
 header {
   text-align: center;
   padding: 35px 15px;
-  background: #1f2937;
+  background: rgba(31, 41, 55, 0.85);
 }
 
 h1 {
@@ -41,7 +51,7 @@ main {
 }
 
 .cancion {
-  background: #1f2937;
+  background: rgba(31, 41, 55, 0.88);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 15px;
@@ -58,7 +68,7 @@ audio {
 }
 
 .estado {
-  color: #9ca3af;
+  color: #d1d5db;
   font-size: 14px;
 }
 
@@ -72,7 +82,7 @@ audio {
 .canal {
   flex: 1;
   max-width: 180px;
-  background: #111827;
+  background: rgba(17, 24, 39, 0.9);
   border: 1px solid #374151;
   border-radius: 12px;
   padding: 15px;
@@ -109,7 +119,8 @@ audio {
 footer {
   text-align: center;
   padding: 25px;
-  color: #9ca3af;
+  color: #d1d5db;
+  background: rgba(17, 24, 39, 0.7);
 }
 </style>
 </head>
@@ -117,16 +128,16 @@ footer {
 <body>
 
 <header>
-<h1>DÚO ITAÚ</h1>
-<h2>SALA DE ENSAYOS VIRTUAL</h2>
-<p>Presentación del disco LUNA NUEVA</p>
-<p>Material de estudio para los músicos</p>
+  <h1>DÚO ITAÚ</h1>
+  <h2>PISTAS PARA GERMÁN</h2>
+  <p>Presentación del disco LUNA NUEVA</p>
+  <p>Material de estudio para los músicos</p>
 </header>
 
 <main id="canciones"></main>
 
 <footer>
-Dúo Itaú - Luna Nueva 2026
+  Dúo Itaú - Luna Nueva 2026
 </footer>
 
 <script>
@@ -233,7 +244,7 @@ canciones.forEach((cancion, indice) => {
       "audios/" +
       encodeURIComponent(cancion.archivo);
 
-    // CREAR MEZCLADOR ESTEREO
+    // MEZCLADOR ESTEREO
 
     const contexto = obtenerContexto();
 
@@ -254,14 +265,13 @@ canciones.forEach((cancion, indice) => {
     const mezclador =
       contexto.createChannelMerger(2);
 
-    // GANANCIA INICIAL
-    // 1 = volumen original
-    // 2 = doble de amplitud
+    // GANANCIA INICIAL AUMENTADA
 
     gananciaL.gain.value = 2;
     gananciaR.gain.value = 2;
 
-    // CONEXIONES: MANTENER ESTEREO ORIGINAL
+    // CANAL IZQUIERDO A SALIDA IZQUIERDA
+    // CANAL DERECHO A SALIDA DERECHA
 
     fuente.connect(divisor);
 
@@ -300,14 +310,12 @@ canciones.forEach((cancion, indice) => {
       }
     );
 
-    // CONTENEDOR DE FADERS
+    // PANEL DE FADERS
 
     const panel =
       document.createElement("div");
 
     panel.className = "mezclador";
-
-    // FUNCION PARA CREAR FADER
 
     function crearFader(
       titulo,
@@ -330,7 +338,6 @@ canciones.forEach((cancion, indice) => {
 
       deslizador.type = "range";
       deslizador.className = "fader";
-
       deslizador.min = "0";
       deslizador.max = "100";
       deslizador.value = "100";
@@ -352,7 +359,7 @@ canciones.forEach((cancion, indice) => {
       texto.className = "etiqueta";
       texto.textContent = etiqueta;
 
-      // CONTROL DE VOLUMEN CON GANANCIA EXTRA
+      // 100% DEL FADER = GANANCIA 2
 
       deslizador.addEventListener(
         "input",
@@ -379,15 +386,11 @@ canciones.forEach((cancion, indice) => {
       return canal;
     }
 
-    // FADER IZQUIERDO
-
     const faderL = crearFader(
       "CANAL L",
       "IZQUIERDO",
       gananciaL
     );
-
-    // FADER DERECHO
 
     const faderR = crearFader(
       "CANAL R",
@@ -406,9 +409,7 @@ canciones.forEach((cancion, indice) => {
       document.createElement("p");
 
     aviso.className = "estado";
-
-    aviso.textContent =
-      "Pista de ensayo";
+    aviso.textContent = "Pista de ensayo";
 
     reproductor.addEventListener(
       "canplay",
@@ -426,8 +427,6 @@ canciones.forEach((cancion, indice) => {
       }
     );
 
-    // AGREGAR ELEMENTOS
-
     seccion.append(
       reproductor,
       panel,
@@ -440,7 +439,6 @@ canciones.forEach((cancion, indice) => {
       document.createElement("p");
 
     aviso.className = "estado";
-
     aviso.textContent =
       "Audio pendiente de cargar.";
 
