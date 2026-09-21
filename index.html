@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Dúo Itaú - Sala de Ensayos</title>
 
 <style>
@@ -56,14 +57,9 @@ audio {
   margin-top: 10px;
 }
 
-button {
-  background: #facc15;
-  color: #111827;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
+.estado {
+  color: #9ca3af;
+  font-size: 14px;
 }
 
 footer {
@@ -90,52 +86,104 @@ Dúo Itaú - Luna Nueva 2026
 </footer>
 
 <script>
+
+// LISTA DE CANCIONES Y ARCHIVOS DE AUDIO
+
 const canciones = [
-"Luna Nueva",
-"Dueña del tiempo",
-"Grieta",
-"El simple valor",
-"Mejor conmigo",
-"Milagro",
-"Pasajera de la soledad",
-"Indiferencia plena",
-"Tierra",
-"Copla ancestral"
+  {
+    titulo: "Luna Nueva",
+    archivo: "01 LUNA NUEVA pa german.mp3"
+  },
+  {
+    titulo: "Dueña del tiempo",
+    archivo: "02.mp3"
+  },
+  {
+    titulo: "Grieta",
+    archivo: "03.mp3"
+  },
+  {
+    titulo: "El simple valor",
+    archivo: "04.mp3"
+  },
+  {
+    titulo: "Mejor conmigo",
+    archivo: "05.mp3"
+  },
+  {
+    titulo: "Milagro",
+    archivo: "06.mp3"
+  },
+  {
+    titulo: "Pasajera de la soledad",
+    archivo: "07.mp3"
+  },
+  {
+    titulo: "Indiferencia plena",
+    archivo: "08.mp3"
+  },
+  {
+    titulo: "Tierra",
+    archivo: "09.mp3"
+  },
+  {
+    titulo: "Copla ancestral",
+    archivo: "10.mp3"
+  }
 ];
+
+// CREAR REPRODUCTORES
 
 const contenedor = document.getElementById("canciones");
 
-canciones.forEach((titulo, indice) => {
+canciones.forEach((cancion, indice) => {
+
   const numero = String(indice + 1).padStart(2, "0");
 
   const seccion = document.createElement("section");
   seccion.className = "cancion";
 
   const nombre = document.createElement("h2");
-  nombre.textContent = numero + " - " + titulo;
+  nombre.textContent = numero + " - " + cancion.titulo;
 
   const descripcion = document.createElement("p");
   descripcion.textContent = "Pista completa de ensayo";
 
   const reproductor = document.createElement("audio");
   reproductor.controls = true;
-  reproductor.preload = "none";
-  reproductor.src = "audios/" + numero + ".mp3";
+  reproductor.preload = "metadata";
+
+  reproductor.src =
+    "audios/" + encodeURIComponent(cancion.archivo);
 
   const aviso = document.createElement("p");
-  aviso.textContent = "Audio pendiente de cargar.";
+  aviso.className = "estado";
+
+  aviso.textContent =
+    indice === 0
+    ? "Cargando pista de ensayo..."
+    : "Audio pendiente de cargar.";
 
   reproductor.addEventListener("canplay", () => {
-    aviso.textContent = "";
+    aviso.textContent = "Audio disponible para escuchar.";
   });
 
   reproductor.addEventListener("error", () => {
-    aviso.textContent = "Audio pendiente de cargar.";
+    aviso.textContent =
+      "Audio no disponible. Verificá que el archivo esté cargado.";
   });
 
-  seccion.append(nombre, descripcion, reproductor, aviso);
+  seccion.append(
+    nombre,
+    descripcion,
+    reproductor,
+    aviso
+  );
+
   contenedor.appendChild(seccion);
+
 });
+
 </script>
 
 </body>
