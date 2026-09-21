@@ -100,35 +100,35 @@ const canciones = [
   },
   {
     titulo: "Grieta",
-    archivo: "03.mp3"
+    archivo: "04 GRIETA CLOCK pa german.mp3"
   },
   {
     titulo: "El simple valor",
-    archivo: "04.mp3"
+    archivo: ""
   },
   {
     titulo: "Mejor conmigo",
-    archivo: "05.mp3"
+    archivo: ""
   },
   {
     titulo: "Milagro",
-    archivo: "06.mp3"
+    archivo: ""
   },
   {
     titulo: "Pasajera de la soledad",
-    archivo: "07.mp3"
+    archivo: ""
   },
   {
     titulo: "Indiferencia plena",
-    archivo: "08.mp3"
+    archivo: ""
   },
   {
     titulo: "Tierra",
-    archivo: "09.mp3"
+    archivo: ""
   },
   {
     titulo: "Copla ancestral",
-    archivo: "10.mp3"
+    archivo: ""
   }
 ];
 
@@ -149,36 +149,40 @@ canciones.forEach((cancion, indice) => {
   const descripcion = document.createElement("p");
   descripcion.textContent = "Pista completa de ensayo";
 
-  const reproductor = document.createElement("audio");
-  reproductor.controls = true;
-  reproductor.preload = "metadata";
+  seccion.append(nombre, descripcion);
 
-  reproductor.src =
-    "audios/" + encodeURIComponent(cancion.archivo);
+  if (cancion.archivo) {
 
-  const aviso = document.createElement("p");
-  aviso.className = "estado";
+    const reproductor = document.createElement("audio");
+    reproductor.controls = true;
+    reproductor.preload = "metadata";
 
-  aviso.textContent =
-    indice < 2
-    ? "Cargando pista de ensayo..."
-    : "Audio pendiente de cargar.";
+    reproductor.src =
+      "audios/" + encodeURIComponent(cancion.archivo);
 
-  reproductor.addEventListener("canplay", () => {
-    aviso.textContent = "Audio disponible para escuchar.";
-  });
+    const aviso = document.createElement("p");
+    aviso.className = "estado";
+    aviso.textContent = "Cargando pista de ensayo...";
 
-  reproductor.addEventListener("error", () => {
-    aviso.textContent =
-      "Audio no disponible. Verificá que el archivo esté cargado.";
-  });
+    reproductor.addEventListener("canplay", () => {
+      aviso.textContent = "Audio disponible para escuchar.";
+    });
 
-  seccion.append(
-    nombre,
-    descripcion,
-    reproductor,
-    aviso
-  );
+    reproductor.addEventListener("error", () => {
+      aviso.textContent =
+        "Audio no disponible. Verificá que el archivo esté cargado.";
+    });
+
+    seccion.append(reproductor, aviso);
+
+  } else {
+
+    const aviso = document.createElement("p");
+    aviso.className = "estado";
+    aviso.textContent = "Audio pendiente de cargar.";
+
+    seccion.appendChild(aviso);
+  }
 
   contenedor.appendChild(seccion);
 
