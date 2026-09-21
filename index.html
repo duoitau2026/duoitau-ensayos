@@ -62,6 +62,50 @@ audio {
   font-size: 14px;
 }
 
+.mezclador {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.canal {
+  flex: 1;
+  max-width: 180px;
+  background: #111827;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+}
+
+.canal h3 {
+  color: #facc15;
+  margin: 0 0 15px;
+  font-size: 16px;
+}
+
+.fader {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 35px;
+  height: 140px;
+  cursor: pointer;
+  accent-color: #facc15;
+}
+
+.valor {
+  color: white;
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.etiqueta {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
 footer {
   text-align: center;
   padding: 25px;
@@ -87,7 +131,7 @@ Dúo Itaú - Luna Nueva 2026
 
 <script>
 
-// LISTA DE CANCIONES Y ARCHIVOS DE AUDIO
+// LISTA DE CANCIONES Y ARCHIVOS
 
 const canciones = [
   {
@@ -132,56 +176,274 @@ const canciones = [
   }
 ];
 
+// MOTOR DE AUDIO
+
+const AudioContextClass =
+  window.AudioContext || window.webkitAudioContext;
+
+let contextoAudio = null;
+
+function obtenerContexto() {
+  if (!contextoAudio) {
+    contextoAudio = new AudioContextClass();
+  }
+  return contextoAudio;
+}
+
 // CREAR REPRODUCTORES
 
-const contenedor = document.getElementById("canciones");
+const contenedor =
+  document.getElementById("canciones");
 
 canciones.forEach((cancion, indice) => {
 
-  const numero = String(indice + 1).padStart(2, "0");
+  const numero =
+    String(indice + 1).padStart(2, "0");
 
-  const seccion = document.createElement("section");
+  const seccion =
+    document.createElement("section");
+
   seccion.className = "cancion";
 
-  const nombre = document.createElement("h2");
-  nombre.textContent = numero + " - " + cancion.titulo;
+  const nombre =
+    document.createElement("h2");
 
-  const descripcion = document.createElement("p");
-  descripcion.textContent = "Pista completa de ensayo";
+  nombre.textContent =
+    numero + " - " + cancion.titulo;
+
+  const descripcion =
+    document.createElement("p");
+
+  descripcion.textContent =
+    "Pista completa de ensayo";
 
   seccion.append(nombre, descripcion);
 
   if (cancion.archivo) {
 
-    const reproductor = document.createElement("audio");
+    // REPRODUCTOR
+
+    const reproductor =
+      document.createElement("audio");
+
     reproductor.controls = true;
     reproductor.preload = "metadata";
 
     reproductor.src =
-      "audios/" + encodeURIComponent(cancion.archivo);
+      "audios/" +
+      encodeURIComponent(cancion.archivo);
 
-    const aviso = document.createElement("p");
+    // CREAR MEZCLADOR ESTEREO
+
+    const contexto = obtenerContexto();
+
+    const fuente =
+      contexto.createMediaElementSource(
+        reproductor
+      );
+
+    const divisor =
+      contexto.createChannelSplitter(2);
+
+    const gananciaL =
+      contexto.createGain();
+
+    const gananciaR =
+      contexto.createGain();
+
+    const mezclador =
+      contexto.createChannelMerger(2);
+
+    // VOLUMEN INICIAL
+
+    gananciaL.gain.value = 1;
+    gananciaR.gain.value = 1;
+
+    // CONEXIONES
+
+    fuente.connect(divisor);
+
+    divisor.connect(
+      gananciaL, 0
+    );
+
+    divisor.connect(
+      gananciaR, 1
+    );
+
+    gananciaL.connect(
+      mezclador, 0, 0
+    );
+
+    gananciaR.connect(
+      mezclador, 0, 1
+    );
+
+    mezclador.connect(
+      contexto.destination
+    );
+
+    // ACTIVAR AUDIO AL REPRODUCIR
+
+    reproductor.addEventListener(
+      "play",
+      async () => {
+        if (contexto.state === "suspended") {
+          try {
+            await contexto.resume();
+          } catch (error) {
+            console.error(error);
+          }
+        }
+      }
+    );
+
+    // CONTENEDOR DE FADERS
+
+    const panel =
+      document.createElement("div");
+
+    panel.className = "mezclador";
+
+    // FUNCION PARA CREAR FADER
+
+    function crearFader(
+      titulo,
+      etiqueta,
+      ganancia
+    ) {
+
+      const canal =
+        document.createElement("div");
+
+      canal.className = "canal";
+
+      const encabezado =
+        document.createElement("h3");
+
+      encabezado.textContent = titulo;
+
+      const deslizador =
+        document.createElement("input");
+
+      deslizador.type = "range";
+      deslizador.className = "fader";
+
+      deslizador.min = "0";
+      deslizador.max = "100";
+      deslizador.value = "100";
+
+      deslizador.setAttribute(
+        "aria-label",
+        "Volumen canal " + etiqueta
+      );
+
+      const valor =
+        document.createElement("div");
+
+      valor.className = "valor";
+      valor.textContent = "100%";
+
+      const texto =
+        document.createElement("div");
+
+      texto.className = "etiqueta";
+      texto.textContent = etiqueta;
+
+      // CONTROL DE VOLUMEN
+
+      deslizador.addEventListener(
+        "input",
+        () => {
+
+          const volumen =
+            Number(deslizador.value) / 100;
+
+          ganancia.gain.value = volumen;
+
+          valor.textContent =
+            deslizador.value + "%";
+
+        }
+      );
+
+      canal.append(
+        encabezado,
+        deslizador,
+        valor,
+        texto
+      );
+
+      return canal;
+    }
+
+    // FADER IZQUIERDO
+
+    const faderL = crearFader(
+      "CANAL L",
+      "IZQUIERDO",
+      gananciaL
+    );
+
+    // FADER DERECHO
+
+    const faderR = crearFader(
+      "CANAL R",
+      "DERECHO",
+      gananciaR
+    );
+
+    panel.append(
+      faderL,
+      faderR
+    );
+
+    // ESTADO DEL AUDIO
+
+    const aviso =
+      document.createElement("p");
+
     aviso.className = "estado";
-    aviso.textContent = "Cargando pista de ensayo...";
 
-    reproductor.addEventListener("canplay", () => {
-      aviso.textContent = "Audio disponible para escuchar.";
-    });
+    aviso.textContent =
+      "Pista de ensayo";
 
-    reproductor.addEventListener("error", () => {
-      aviso.textContent =
-        "Audio no disponible. Verificá que el archivo esté cargado.";
-    });
+    reproductor.addEventListener(
+      "canplay",
+      () => {
+        aviso.textContent =
+          "Audio disponible para escuchar.";
+      }
+    );
 
-    seccion.append(reproductor, aviso);
+    reproductor.addEventListener(
+      "error",
+      () => {
+        aviso.textContent =
+          "Audio no disponible. Verificá el archivo.";
+      }
+    );
+
+    // AGREGAR ELEMENTOS
+
+    seccion.append(
+      reproductor,
+      panel,
+      aviso
+    );
 
   } else {
 
-    const aviso = document.createElement("p");
+    const aviso =
+      document.createElement("p");
+
     aviso.className = "estado";
-    aviso.textContent = "Audio pendiente de cargar.";
+
+    aviso.textContent =
+      "Audio pendiente de cargar.";
 
     seccion.appendChild(aviso);
+
   }
 
   contenedor.appendChild(seccion);
