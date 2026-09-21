@@ -254,12 +254,14 @@ canciones.forEach((cancion, indice) => {
     const mezclador =
       contexto.createChannelMerger(2);
 
-    // VOLUMEN INICIAL
+    // GANANCIA INICIAL
+    // 1 = volumen original
+    // 2 = doble de amplitud
 
-    gananciaL.gain.value = 1;
-    gananciaR.gain.value = 1;
+    gananciaL.gain.value = 2;
+    gananciaR.gain.value = 2;
 
-    // CONEXIONES
+    // CONEXIONES: MANTENER ESTEREO ORIGINAL
 
     fuente.connect(divisor);
 
@@ -350,14 +352,14 @@ canciones.forEach((cancion, indice) => {
       texto.className = "etiqueta";
       texto.textContent = etiqueta;
 
-      // CONTROL DE VOLUMEN
+      // CONTROL DE VOLUMEN CON GANANCIA EXTRA
 
       deslizador.addEventListener(
         "input",
         () => {
 
           const volumen =
-            Number(deslizador.value) / 100;
+            Number(deslizador.value) / 100 * 2;
 
           ganancia.gain.value = volumen;
 
