@@ -94,6 +94,19 @@ audio {
   font-size: 14px;
 }
 
+/* CARTEL PARA LAS CANCIONES SIN METRÓNOMO */
+
+.sin-metronomo {
+  display: inline-block;
+  margin: 15px 0 5px;
+  padding: 9px 15px;
+  background: #facc15;
+  color: #111827;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .mezclador {
   display: flex;
   justify-content: space-around;
@@ -240,21 +253,24 @@ const canciones = [
   {
     titulo: "Luz",
     archivo: "luz.mp3",
-    participa: true
+    participa: true,
+    sinMetronomo: true
   },
   {
     titulo: "Ya sé (cierre)",
     archivo: "YA SE.mp3",
-    participa: true
+    participa: true,
+    sinMetronomo: true
   },
   {
     titulo: "A pura ushuta",
     archivo: "Dúo Itaú - A pura Ushuta (chacarera).mp3",
-    participa: true
+    participa: true,
+    sinMetronomo: true
   }
 ];
 
-// MOTOR DE AUDIO
+// MOTOR DE AUDIO PARA LAS PISTAS CON FADERS
 
 const AudioContextClass =
   window.AudioContext || window.webkitAudioContext;
@@ -265,6 +281,7 @@ function obtenerContexto() {
   if (!contextoAudio) {
     contextoAudio = new AudioContextClass();
   }
+
   return contextoAudio;
 }
 
@@ -306,7 +323,7 @@ canciones.forEach((cancion, indice) => {
 
   } else if (cancion.archivo) {
 
-    // REPRODUCTOR
+    // REPRODUCTOR PARA LAS CANCIONES CON AUDIO
 
     const descripcion =
       document.createElement("p");
@@ -323,166 +340,6 @@ canciones.forEach((cancion, indice) => {
     reproductor.src =
       "audios/" +
       encodeURIComponent(cancion.archivo);
-
-    // MEZCLADOR ESTÉREO
-
-    const contexto = obtenerContexto();
-
-    const fuente =
-      contexto.createMediaElementSource(
-        reproductor
-      );
-
-    const divisor =
-      contexto.createChannelSplitter(2);
-
-    const gananciaL =
-      contexto.createGain();
-
-    const gananciaR =
-      contexto.createGain();
-
-    const mezclador =
-      contexto.createChannelMerger(2);
-
-    // VOLUMEN MÁXIMO AUMENTADO
-
-    gananciaL.gain.value = 2;
-    gananciaR.gain.value = 2;
-
-    // MANTENER CADA CANAL EN SU LADO
-
-    fuente.connect(divisor);
-
-    divisor.connect(
-      gananciaL, 0
-    );
-
-    divisor.connect(
-      gananciaR, 1
-    );
-
-    gananciaL.connect(
-      mezclador, 0, 0
-    );
-
-    gananciaR.connect(
-      mezclador, 0, 1
-    );
-
-    mezclador.connect(
-      contexto.destination
-    );
-
-    // ACTIVAR EL AUDIO AL REPRODUCIR
-
-    reproductor.addEventListener(
-      "play",
-      async () => {
-        if (contexto.state === "suspended") {
-          try {
-            await contexto.resume();
-          } catch (error) {
-            console.error(error);
-          }
-        }
-      }
-    );
-
-    // PANEL DE FADERS
-
-    const panel =
-      document.createElement("div");
-
-    panel.className = "mezclador";
-
-    function crearFader(
-      titulo,
-      etiqueta,
-      ganancia
-    ) {
-
-      const canal =
-        document.createElement("div");
-
-      canal.className = "canal";
-
-      const encabezado =
-        document.createElement("h3");
-
-      encabezado.textContent = titulo;
-
-      const deslizador =
-        document.createElement("input");
-
-      deslizador.type = "range";
-      deslizador.className = "fader";
-      deslizador.min = "0";
-      deslizador.max = "100";
-      deslizador.value = "100";
-
-      deslizador.setAttribute(
-        "aria-label",
-        "Volumen canal " + etiqueta
-      );
-
-      const valor =
-        document.createElement("div");
-
-      valor.className = "valor";
-      valor.textContent = "100%";
-
-      const texto =
-        document.createElement("div");
-
-      texto.className = "etiqueta";
-      texto.textContent = etiqueta;
-
-      // 100% DEL FADER = GANANCIA 2
-
-      deslizador.addEventListener(
-        "input",
-        () => {
-
-          const volumen =
-            Number(deslizador.value) / 100 * 2;
-
-          ganancia.gain.value = volumen;
-
-          valor.textContent =
-            deslizador.value + "%";
-
-        }
-      );
-
-      canal.append(
-        encabezado,
-        deslizador,
-        valor,
-        texto
-      );
-
-      return canal;
-    }
-
-    const faderL = crearFader(
-      "CANAL L",
-      "IZQUIERDO",
-      gananciaL
-    );
-
-    const faderR = crearFader(
-      "CANAL R",
-      "DERECHO",
-      gananciaR
-    );
-
-    panel.append(
-      faderL,
-      faderR
-    );
-
-    // ESTADO DEL AUDIO
 
     const aviso =
       document.createElement("p");
@@ -508,10 +365,189 @@ canciones.forEach((cancion, indice) => {
 
     seccion.append(
       descripcion,
-      reproductor,
-      panel,
-      aviso
+      reproductor
     );
+
+    // LUZ, YA SÉ Y A PURA USHUTA:
+    // REPRODUCTOR NORMAL, SIN FADERS
+
+    if (cancion.sinMetronomo) {
+
+      const cartel =
+        document.createElement("p");
+
+      cartel.className = "sin-metronomo";
+      cartel.textContent =
+        "Estas van sin metrónomo";
+
+      seccion.appendChild(cartel);
+
+    } else {
+
+      // LAS DEMÁS PISTAS CONSERVAN
+      // LOS DOS FADERS INDEPENDIENTES
+
+      const contexto = obtenerContexto();
+
+      const fuente =
+        contexto.createMediaElementSource(
+          reproductor
+        );
+
+      const divisor =
+        contexto.createChannelSplitter(2);
+
+      const gananciaL =
+        contexto.createGain();
+
+      const gananciaR =
+        contexto.createGain();
+
+      const mezclador =
+        contexto.createChannelMerger(2);
+
+      // VOLUMEN MÁXIMO AUMENTADO
+
+      gananciaL.gain.value = 2;
+      gananciaR.gain.value = 2;
+
+      // MANTENER EL ESTÉREO ORIGINAL
+
+      fuente.connect(divisor);
+
+      divisor.connect(
+        gananciaL, 0
+      );
+
+      divisor.connect(
+        gananciaR, 1
+      );
+
+      gananciaL.connect(
+        mezclador, 0, 0
+      );
+
+      gananciaR.connect(
+        mezclador, 0, 1
+      );
+
+      mezclador.connect(
+        contexto.destination
+      );
+
+      // ACTIVAR AUDIO AL REPRODUCIR
+
+      reproductor.addEventListener(
+        "play",
+        async () => {
+          if (contexto.state === "suspended") {
+            try {
+              await contexto.resume();
+            } catch (error) {
+              console.error(error);
+            }
+          }
+        }
+      );
+
+      // PANEL DE FADERS
+
+      const panel =
+        document.createElement("div");
+
+      panel.className = "mezclador";
+
+      function crearFader(
+        titulo,
+        etiqueta,
+        ganancia
+      ) {
+
+        const canal =
+          document.createElement("div");
+
+        canal.className = "canal";
+
+        const encabezado =
+          document.createElement("h3");
+
+        encabezado.textContent = titulo;
+
+        const deslizador =
+          document.createElement("input");
+
+        deslizador.type = "range";
+        deslizador.className = "fader";
+        deslizador.min = "0";
+        deslizador.max = "100";
+        deslizador.value = "100";
+
+        deslizador.setAttribute(
+          "aria-label",
+          "Volumen canal " + etiqueta
+        );
+
+        const valor =
+          document.createElement("div");
+
+        valor.className = "valor";
+        valor.textContent = "100%";
+
+        const texto =
+          document.createElement("div");
+
+        texto.className = "etiqueta";
+        texto.textContent = etiqueta;
+
+        // 100% DEL FADER = GANANCIA 2
+
+        deslizador.addEventListener(
+          "input",
+          () => {
+
+            const volumen =
+              Number(deslizador.value) / 100 * 2;
+
+            ganancia.gain.value = volumen;
+
+            valor.textContent =
+              deslizador.value + "%";
+
+          }
+        );
+
+        canal.append(
+          encabezado,
+          deslizador,
+          valor,
+          texto
+        );
+
+        return canal;
+      }
+
+      const faderL = crearFader(
+        "CANAL L",
+        "IZQUIERDO",
+        gananciaL
+      );
+
+      const faderR = crearFader(
+        "CANAL R",
+        "DERECHO",
+        gananciaR
+      );
+
+      panel.append(
+        faderL,
+        faderR
+      );
+
+      seccion.appendChild(panel);
+
+    }
+
+    seccion.appendChild(aviso);
 
   } else {
 
