@@ -182,6 +182,35 @@ audio {
   font-size: 15px;
 }
 
+/* VIDEOS DE YOUTUBE PARA HERNÁN */
+
+.video-ensayo {
+  margin-top: 22px;
+  padding-top: 15px;
+  border-top: 1px solid #4b5563;
+}
+
+.video-ensayo h3 {
+  color: #facc15;
+  font-size: 17px;
+  margin: 0 0 12px;
+}
+
+.video-contenedor {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #000;
+}
+
+.video-contenedor iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
 /* FADERS */
 
 .mezclador {
@@ -359,8 +388,8 @@ const musicos = {
     clave: "vc",
     instrumento: "Guitarra",
     icono: "🎸",
-    carpeta: "audios/hernan",
-    fondo: fondoPrincipal
+    carpeta: "audios/pa hernan",
+    fondo: "https://scontent.fros2-2.fna.fbcdn.net/v/t39.30808-6/506628262_10235494435397587_3104701208956728019_n.jpg?stp=dst-jpg_tt6&cstp=mx1080x1080&ctp=s1080x1080&_nc_cat=110&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHviiGrxVqnR9MnMGnU75Il98x4yeK_BQ33zHjJ4r8FDZmmvsLq-_cj4FvuelrKXq-5q3BkYdki1kaJcgT2jMAH&_nc_ohc=ewev1Xi_SCUQ7kNvwEGSG_Y&_nc_oc=Ado0jThQihdT2PuWOmyrsFa3HAOl0rQatbDsHk3_M_xPn5P2vozMAUBE_0EL0oaMZno&_nc_zt=23&_nc_ht=scontent.fros2-2.fna&_nc_gid=8fsoL2zpsNoe41nk09QjHA&_nc_ss=7b2a8&oh=00_AQLajcAZ8uXkhPFCSbgOWuqzuN4JeVXbJIqQ6wWq6R5cMA&oe=6ABB5463"
   },
 
   marculi: {
@@ -541,12 +570,33 @@ const archivosPorMusico = {
 
   flor: {},
 
-  hernan: {},
+  hernan: {
+    "El simple valor": "el simple valor pa hernan.mp3",
+    "Indiferencia plena": "indiferencia plena pa hernan.mp3",
+    "Mejor conmigo": "mejor conmigo pa hernan.mp3",
+    "Tierra": "tierra pa hernan.mp3",
+
+    // Comparte el mismo MP3 que Germán, Emiliano y Marcos:
+    "A pura ushuta":
+      "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
+  },
 
   marculi: {},
 
   diego: {}
 
+};
+
+
+// =====================================================
+// VIDEOS DE YOUTUBE PARA EL PANEL DE HERNÁN
+// =====================================================
+
+const videosHernan = {
+  "El simple valor": "Um6md_Qj_ts",
+  "Mejor conmigo": "2opJcHl0KVk",
+  "Tierra": "lHN6w2dNdRM",
+  "Indiferencia plena": "MxVtpLC_Rss"
 };
 
 
@@ -757,6 +807,11 @@ function detenerAudios() {
 
   });
 
+  // Al salir del panel, también se cierran los videos.
+  contenedor.querySelectorAll("iframe").forEach(video => {
+    video.removeAttribute("src");
+  });
+
 }
 
 
@@ -888,7 +943,7 @@ function crearCancion(
 
   }
 
-  // CREAR REPRODUCTOR
+  // CREAR REPRODUCTOR MP3
 
   const descripcion =
     document.createElement("p");
@@ -978,6 +1033,57 @@ function crearCancion(
   }
 
   seccion.appendChild(aviso);
+
+  // AGREGAR YOUTUBE SOLO A LAS CUATRO CANCIONES DE HERNÁN
+
+  if (
+    idMusico === "hernan" &&
+    videosHernan[cancion.titulo]
+  ) {
+
+    const bloqueVideo =
+      document.createElement("div");
+
+    bloqueVideo.className = "video-ensayo";
+
+    const tituloVideo =
+      document.createElement("h3");
+
+    tituloVideo.textContent =
+      "▶ Video de YouTube para ensayar";
+
+    const contenedorVideo =
+      document.createElement("div");
+
+    contenedorVideo.className = "video-contenedor";
+
+    const video =
+      document.createElement("iframe");
+
+    video.src =
+      "https://www.youtube.com/embed/" +
+      videosHernan[cancion.titulo];
+
+    video.title =
+      "Video de ensayo: " + cancion.titulo;
+
+    video.loading = "lazy";
+
+    video.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+    video.allowFullscreen = true;
+
+    contenedorVideo.appendChild(video);
+
+    bloqueVideo.append(
+      tituloVideo,
+      contenedorVideo
+    );
+
+    seccion.appendChild(bloqueVideo);
+
+  }
 
   contenedor.appendChild(seccion);
 
