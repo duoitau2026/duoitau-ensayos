@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dúo Itaú - Pistas para Germán</title>
+<title>Dúo Itaú - Sala de ensayos</title>
 
 <style>
 * {
@@ -44,8 +44,6 @@ header p {
   color: #d1d5db;
 }
 
-/* CARTEL DE ALIENTO */
-
 .aliento {
   display: inline-block;
   margin: 15px auto 0;
@@ -72,6 +70,85 @@ main {
   padding: 20px;
 }
 
+.oculto {
+  display: none !important;
+}
+
+/* PANTALLA DE INGRESO */
+
+.ingreso {
+  max-width: 440px;
+  margin: 35px auto;
+  padding: 30px 22px;
+  text-align: center;
+  background: rgba(31, 41, 55, 0.95);
+  border: 1px solid #4b5563;
+  border-radius: 16px;
+}
+
+.ingreso h2 {
+  color: #facc15;
+}
+
+.ingreso input {
+  width: 100%;
+  padding: 14px;
+  margin: 15px 0;
+  border: 2px solid #6b7280;
+  border-radius: 9px;
+  font-size: 18px;
+  text-align: center;
+}
+
+button {
+  padding: 12px 22px;
+  background: #facc15;
+  color: #111827;
+  border: none;
+  border-radius: 9px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #fde047;
+}
+
+.error {
+  color: #fca5a5;
+  font-weight: bold;
+}
+
+/* ENCABEZADO DEL PANEL */
+
+.panel-encabezado {
+  text-align: center;
+  padding: 22px;
+  margin-bottom: 20px;
+  background: rgba(31, 41, 55, 0.92);
+  border-radius: 14px;
+}
+
+.instrumento {
+  font-size: 54px;
+  margin: 8px 0;
+}
+
+.panel-encabezado h2 {
+  color: #facc15;
+  margin: 8px 0;
+}
+
+.salir {
+  margin-top: 12px;
+  background: #374151;
+  color: white;
+  border: 1px solid #6b7280;
+}
+
+/* CANCIONES */
+
 .cancion {
   background: rgba(31, 41, 55, 0.88);
   border-radius: 12px;
@@ -94,8 +171,6 @@ audio {
   font-size: 14px;
 }
 
-/* CARTEL PARA LAS CANCIONES SIN METRÓNOMO */
-
 .sin-metronomo {
   display: inline-block;
   margin: 15px 0 5px;
@@ -106,6 +181,8 @@ audio {
   font-weight: bold;
   font-size: 15px;
 }
+
+/* FADERS */
 
 .mezclador {
   display: flex;
@@ -164,12 +241,62 @@ footer {
 
 <header>
   <h1>DÚO ITAÚ</h1>
-  <h2>PISTAS PARA GERMÁN</h2>
+  <h2>SALA DE ENSAYOS</h2>
   <p>Presentación del disco LUNA NUEVA</p>
   <p class="aliento">¡VAMOOOO PAPIRRIIII! 🎸🔥</p>
 </header>
 
-<main id="canciones"></main>
+<main>
+
+  <!-- PANTALLA DE INGRESO -->
+
+  <section id="pantallaIngreso" class="ingreso">
+
+    <h2>🎵 INGRESO DE MÚSICOS</h2>
+
+    <p>Escribí tu clave para entrar a tu panel de ensayo.</p>
+
+    <form id="formularioIngreso">
+
+      <input
+        id="campoClave"
+        type="password"
+        placeholder="Tu clave"
+        autocomplete="off"
+        required
+      >
+
+      <button type="submit">ENTRAR</button>
+
+    </form>
+
+    <p id="mensajeError" class="error" role="alert"></p>
+
+  </section>
+
+  <!-- PANEL DEL MÚSICO -->
+
+  <div id="panelMusico" class="oculto">
+
+    <section class="panel-encabezado">
+
+      <div id="iconoInstrumento" class="instrumento"></div>
+
+      <h2 id="nombreMusico"></h2>
+
+      <p id="nombreInstrumento"></p>
+
+      <button id="botonSalir" class="salir">
+        Salir de mi panel
+      </button>
+
+    </section>
+
+    <div id="canciones"></div>
+
+  </div>
+
+</main>
 
 <footer>
   Dúo Itaú - Luna Nueva 2026
@@ -177,100 +304,285 @@ footer {
 
 <script>
 
+// =====================================================
+// MÚSICOS Y CLAVES
+// =====================================================
+//
+// Estas claves están visibles en el código público.
+// Sirven para organizar los paneles, no para
+// proteger los archivos de audio.
+//
+
+const musicos = {
+
+  german: {
+    nombre: "Germán",
+    clave: "claudiogeno",
+    instrumento: "Panel de pistas",
+    icono: "🎸",
+    carpeta: "audios"
+  },
+
+  emiliano: {
+    nombre: "Emiliano",
+    clave: "flute",
+    instrumento: "Flauta y quena",
+    icono: "🪈",
+    carpeta: "audios/emiliano"
+  },
+
+  marcos: {
+    nombre: "Marcos",
+    clave: "tango",
+    instrumento: "Bandoneón",
+    icono: "🪗",
+    carpeta: "audios/marcos"
+  },
+
+  flor: {
+    nombre: "Flor",
+    clave: "magico",
+    instrumento: "Piano",
+    icono: "🎹",
+    carpeta: "audios/flor"
+  },
+
+  hernan: {
+    nombre: "Hernán",
+    clave: "vc",
+    instrumento: "Guitarra",
+    icono: "🎸",
+    carpeta: "audios/hernan"
+  },
+
+  marculi: {
+    nombre: "Marculi",
+    clave: "bajeo",
+    instrumento: "Bajo",
+    icono: "🎸",
+    carpeta: "audios/marculi"
+  },
+
+  diego: {
+    nombre: "Diego",
+    clave: "cerati",
+    instrumento: "Guitarra eléctrica",
+    icono: "🎸",
+    carpeta: "audios/diego"
+  }
+
+};
+
+
+// =====================================================
 // CANCIONES EN EL ORDEN DEL SHOW
+// =====================================================
 
 const canciones = [
+
   {
     titulo: "Mariel (solista)",
-    archivo: "",
-    participa: false
+    archivoGerman: "",
+    participaGerman: false
   },
+
   {
     titulo: "Claudio (solista)",
-    archivo: "",
-    participa: false
+    archivoGerman: "",
+    participaGerman: false
   },
+
   {
     titulo: "El cosechero",
-    archivo: "",
-    participa: false
+    archivoGerman: "",
+    participaGerman: false
   },
+
   {
     titulo: "Salamanqueando pa' mí",
-    archivo: "",
-    participa: false
+    archivoGerman: "",
+    participaGerman: false
   },
+
   {
     titulo: "Luna Nueva",
-    archivo: "01 LUNA NUEVA pa german.mp3",
-    participa: true
+    archivoGerman: "01 LUNA NUEVA pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "Grieta",
-    archivo: "04 GRIETA CLOCK pa german.mp3",
-    participa: true
+    archivoGerman: "04 GRIETA CLOCK pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "Mejor conmigo",
-    archivo: "mejor conmigo pista clock pa german.mp3",
-    participa: true
+    archivoGerman: "mejor conmigo pista clock pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "El simple valor",
-    archivo: "el simple valor pista clock pa german.mp3",
-    participa: true
+    archivoGerman: "el simple valor pista clock pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "Indiferencia plena",
-    archivo: "indiferencia plena pa german.mp3",
-    participa: true
+    archivoGerman: "indiferencia plena pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "Pasajera",
-    archivo: "06 PASAJERA pa german.mp3",
-    participa: true
+    archivoGerman: "06 PASAJERA pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "Tierra",
-    archivo: "tierra pa german.mp3",
-    participa: true
+    archivoGerman: "tierra pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "Copla ancestral",
-    archivo: "",
-    participa: true
+    archivoGerman: "",
+    participaGerman: true
   },
+
   {
     titulo: "Milagro",
-    archivo: "",
-    participa: true
+    archivoGerman: "",
+    participaGerman: true
   },
+
   {
     titulo: "Dueña del tiempo",
-    archivo: "10 dueña del tiempo pa german.mp3",
-    participa: true
+    archivoGerman: "10 dueña del tiempo pa german.mp3",
+    participaGerman: true
   },
+
   {
     titulo: "Luz",
-    archivo: "luz.mp3",
-    participa: true,
+    archivoGerman: "luz.mp3",
+    participaGerman: true,
     sinMetronomo: true
   },
+
   {
     titulo: "Ya sé (cierre)",
-    archivo: "YA SE.mp3",
-    participa: true,
+    archivoGerman: "YA SE.mp3",
+    participaGerman: true,
     sinMetronomo: true
   },
+
   {
     titulo: "A pura ushuta",
-    archivo: "Dúo Itaú - A pura Ushuta (chacarera).mp3",
-    participa: true,
+    archivoGerman: "Dúo Itaú - A pura Ushuta (chacarera).mp3",
+    participaGerman: true,
     sinMetronomo: true
   }
+
 ];
 
-// MOTOR DE AUDIO PARA LAS PISTAS CON FADERS
+
+// =====================================================
+// ARCHIVOS PROPIOS DE CADA MÚSICO
+// =====================================================
+//
+// Cada músico tiene sus propios MP3.
+//
+// Cuando dos músicos usan el mismo archivo, se puede
+// indicar la ruta completa sin duplicar el MP3.
+//
+// Por ejemplo, Emiliano usa la misma pista de
+// "A pura ushuta" que Germán.
+//
+
+const archivosPorMusico = {
+
+  emiliano: {
+    "Mejor conmigo": "mejor conmigo pa emi.mp3",
+    "Grieta": "04 GRIETA emi.mp3",
+    "Tierra": "tierra pa emi.mp3",
+    "Luz": "luz.mp3",
+
+    // MISMO MP3 QUE GERMÁN:
+    "A pura ushuta":
+      "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
+  },
+
+  marcos: {},
+
+  flor: {},
+
+  hernan: {},
+
+  marculi: {},
+
+  diego: {}
+
+};
+
+
+// =====================================================
+// PARTICIPACIÓN DE CADA MÚSICO
+// =====================================================
+
+const participacionPorMusico = {
+
+  emiliano: [
+    "Mejor conmigo",
+    "Grieta",
+    "Tierra",
+    "Luz",
+    "A pura ushuta"
+  ],
+
+  marcos: [
+    "Indiferencia plena",
+    "El simple valor",
+    "A pura ushuta"
+  ],
+
+  flor: [
+    "Pasajera",
+    "Mejor conmigo",
+    "Milagro",
+    "Dueña del tiempo",
+    "El simple valor",
+    "Ya sé (cierre)",
+    "A pura ushuta"
+  ],
+
+  hernan: [
+    "Mejor conmigo",
+    "El simple valor",
+    "Indiferencia plena",
+    "Tierra",
+    "A pura ushuta"
+  ],
+
+  diego: [
+    "Copla ancestral",
+    "Ya sé (cierre)",
+    "A pura ushuta"
+  ],
+
+  // Marculi toca todas menos las dos solistas.
+
+  marculi: canciones
+    .slice(2)
+    .map(cancion => cancion.titulo)
+
+};
+
+
+// =====================================================
+// MOTOR DE AUDIO
+// =====================================================
 
 const AudioContextClass =
   window.AudioContext || window.webkitAudioContext;
@@ -278,19 +590,191 @@ const AudioContextClass =
 let contextoAudio = null;
 
 function obtenerContexto() {
+
   if (!contextoAudio) {
     contextoAudio = new AudioContextClass();
   }
 
   return contextoAudio;
+
 }
 
-// CREAR LISTA Y REPRODUCTORES
+
+// =====================================================
+// ELEMENTOS DE LA PÁGINA
+// =====================================================
+
+const pantallaIngreso =
+  document.getElementById("pantallaIngreso");
+
+const formularioIngreso =
+  document.getElementById("formularioIngreso");
+
+const campoClave =
+  document.getElementById("campoClave");
+
+const mensajeError =
+  document.getElementById("mensajeError");
+
+const panelMusico =
+  document.getElementById("panelMusico");
 
 const contenedor =
   document.getElementById("canciones");
 
-canciones.forEach((cancion, indice) => {
+const nombreMusico =
+  document.getElementById("nombreMusico");
+
+const nombreInstrumento =
+  document.getElementById("nombreInstrumento");
+
+const iconoInstrumento =
+  document.getElementById("iconoInstrumento");
+
+const botonSalir =
+  document.getElementById("botonSalir");
+
+
+// =====================================================
+// INGRESO CON CLAVE
+// =====================================================
+
+formularioIngreso.addEventListener(
+  "submit",
+  (evento) => {
+
+    evento.preventDefault();
+
+    const claveIngresada =
+      campoClave.value.trim();
+
+    const idMusico = Object.keys(musicos).find(
+      id => musicos[id].clave === claveIngresada
+    );
+
+    if (!idMusico) {
+
+      mensajeError.textContent =
+        "Clave incorrecta. Intentá nuevamente.";
+
+      campoClave.value = "";
+      campoClave.focus();
+
+      return;
+
+    }
+
+    mensajeError.textContent = "";
+
+    campoClave.value = "";
+
+    abrirPanel(idMusico);
+
+  }
+);
+
+
+// =====================================================
+// ABRIR PANEL DEL MÚSICO
+// =====================================================
+
+function abrirPanel(idMusico) {
+
+  const musico = musicos[idMusico];
+
+  detenerAudios();
+
+  contenedor.replaceChildren();
+
+  nombreMusico.textContent =
+    "PISTAS PARA " + musico.nombre.toUpperCase();
+
+  nombreInstrumento.textContent =
+    musico.instrumento;
+
+  iconoInstrumento.textContent =
+    musico.icono;
+
+  pantallaIngreso.classList.add("oculto");
+
+  panelMusico.classList.remove("oculto");
+
+  canciones.forEach((cancion, indice) => {
+
+    crearCancion(
+      cancion,
+      indice,
+      idMusico,
+      musico
+    );
+
+  });
+
+  window.scrollTo(0, 0);
+
+}
+
+
+// =====================================================
+// DETENER AUDIOS AL CAMBIAR DE PANEL
+// =====================================================
+
+function detenerAudios() {
+
+  const reproductores =
+    contenedor.querySelectorAll("audio");
+
+  reproductores.forEach(reproductor => {
+
+    reproductor.pause();
+
+    reproductor.removeAttribute("src");
+
+    reproductor.load();
+
+  });
+
+}
+
+
+// =====================================================
+// SALIR DEL PANEL
+// =====================================================
+
+botonSalir.addEventListener(
+  "click",
+  () => {
+
+    detenerAudios();
+
+    contenedor.replaceChildren();
+
+    panelMusico.classList.add("oculto");
+
+    pantallaIngreso.classList.remove("oculto");
+
+    mensajeError.textContent = "";
+
+    campoClave.value = "";
+
+    campoClave.focus();
+
+    window.scrollTo(0, 0);
+
+  }
+);
+
+
+// =====================================================
+// CREAR CADA CANCIÓN
+// =====================================================
+
+function crearCancion(
+  cancion,
+  indice,
+  idMusico,
+  musico
+) {
 
   const numero =
     String(indice + 1).padStart(2, "0");
@@ -308,266 +792,359 @@ canciones.forEach((cancion, indice) => {
 
   seccion.appendChild(nombre);
 
-  // TEMAS EN LOS QUE GERMÁN NO PARTICIPA
+  // DETERMINAR SI PARTICIPA
 
-  if (!cancion.participa) {
+  let participa = false;
 
-    const aviso =
-      document.createElement("p");
+  if (idMusico === "german") {
 
-    aviso.className = "estado";
-    aviso.textContent =
-      "Germán no participa en este tema.";
-
-    seccion.appendChild(aviso);
-
-  } else if (cancion.archivo) {
-
-    // REPRODUCTOR PARA LAS CANCIONES CON AUDIO
-
-    const descripcion =
-      document.createElement("p");
-
-    descripcion.textContent =
-      "Pista completa de ensayo";
-
-    const reproductor =
-      document.createElement("audio");
-
-    reproductor.controls = true;
-    reproductor.preload = "metadata";
-
-    reproductor.src =
-      "audios/" +
-      encodeURIComponent(cancion.archivo);
-
-    const aviso =
-      document.createElement("p");
-
-    aviso.className = "estado";
-    aviso.textContent = "Pista de ensayo";
-
-    reproductor.addEventListener(
-      "canplay",
-      () => {
-        aviso.textContent =
-          "Audio disponible para escuchar.";
-      }
-    );
-
-    reproductor.addEventListener(
-      "error",
-      () => {
-        aviso.textContent =
-          "Audio no disponible. Verificá el archivo.";
-      }
-    );
-
-    seccion.append(
-      descripcion,
-      reproductor
-    );
-
-    // LUZ, YA SÉ Y A PURA USHUTA:
-    // REPRODUCTOR NORMAL, SIN FADERS
-
-    if (cancion.sinMetronomo) {
-
-      const cartel =
-        document.createElement("p");
-
-      cartel.className = "sin-metronomo";
-      cartel.textContent =
-        "Estas van sin metrónomo";
-
-      seccion.appendChild(cartel);
-
-    } else {
-
-      // LAS DEMÁS PISTAS CONSERVAN
-      // LOS DOS FADERS INDEPENDIENTES
-
-      const contexto = obtenerContexto();
-
-      const fuente =
-        contexto.createMediaElementSource(
-          reproductor
-        );
-
-      const divisor =
-        contexto.createChannelSplitter(2);
-
-      const gananciaL =
-        contexto.createGain();
-
-      const gananciaR =
-        contexto.createGain();
-
-      const mezclador =
-        contexto.createChannelMerger(2);
-
-      // VOLUMEN MÁXIMO AUMENTADO
-
-      gananciaL.gain.value = 2;
-      gananciaR.gain.value = 2;
-
-      // MANTENER EL ESTÉREO ORIGINAL
-
-      fuente.connect(divisor);
-
-      divisor.connect(
-        gananciaL, 0
-      );
-
-      divisor.connect(
-        gananciaR, 1
-      );
-
-      gananciaL.connect(
-        mezclador, 0, 0
-      );
-
-      gananciaR.connect(
-        mezclador, 0, 1
-      );
-
-      mezclador.connect(
-        contexto.destination
-      );
-
-      // ACTIVAR AUDIO AL REPRODUCIR
-
-      reproductor.addEventListener(
-        "play",
-        async () => {
-          if (contexto.state === "suspended") {
-            try {
-              await contexto.resume();
-            } catch (error) {
-              console.error(error);
-            }
-          }
-        }
-      );
-
-      // PANEL DE FADERS
-
-      const panel =
-        document.createElement("div");
-
-      panel.className = "mezclador";
-
-      function crearFader(
-        titulo,
-        etiqueta,
-        ganancia
-      ) {
-
-        const canal =
-          document.createElement("div");
-
-        canal.className = "canal";
-
-        const encabezado =
-          document.createElement("h3");
-
-        encabezado.textContent = titulo;
-
-        const deslizador =
-          document.createElement("input");
-
-        deslizador.type = "range";
-        deslizador.className = "fader";
-        deslizador.min = "0";
-        deslizador.max = "100";
-        deslizador.value = "100";
-
-        deslizador.setAttribute(
-          "aria-label",
-          "Volumen canal " + etiqueta
-        );
-
-        const valor =
-          document.createElement("div");
-
-        valor.className = "valor";
-        valor.textContent = "100%";
-
-        const texto =
-          document.createElement("div");
-
-        texto.className = "etiqueta";
-        texto.textContent = etiqueta;
-
-        // 100% DEL FADER = GANANCIA 2
-
-        deslizador.addEventListener(
-          "input",
-          () => {
-
-            const volumen =
-              Number(deslizador.value) / 100 * 2;
-
-            ganancia.gain.value = volumen;
-
-            valor.textContent =
-              deslizador.value + "%";
-
-          }
-        );
-
-        canal.append(
-          encabezado,
-          deslizador,
-          valor,
-          texto
-        );
-
-        return canal;
-      }
-
-      const faderL = crearFader(
-        "CANAL L",
-        "IZQUIERDO",
-        gananciaL
-      );
-
-      const faderR = crearFader(
-        "CANAL R",
-        "DERECHO",
-        gananciaR
-      );
-
-      panel.append(
-        faderL,
-        faderR
-      );
-
-      seccion.appendChild(panel);
-
-    }
-
-    seccion.appendChild(aviso);
+    participa = cancion.participaGerman;
 
   } else {
 
-    // TEMA EN EL QUE PARTICIPA,
-    // PERO TODAVÍA NO TIENE AUDIO
+    participa =
+      participacionPorMusico[idMusico]
+        .includes(cancion.titulo);
+
+  }
+
+  if (!participa) {
 
     const aviso =
       document.createElement("p");
 
     aviso.className = "estado";
+
+    aviso.textContent =
+      musico.nombre + " no participa en este tema.";
+
+    seccion.appendChild(aviso);
+
+    contenedor.appendChild(seccion);
+
+    return;
+
+  }
+
+  // BUSCAR EL ARCHIVO CORRESPONDIENTE
+
+  let archivo = "";
+
+  if (idMusico === "german") {
+
+    archivo = cancion.archivoGerman;
+
+  } else {
+
+    archivo =
+      archivosPorMusico[idMusico][cancion.titulo] || "";
+
+  }
+
+  // SI TODAVÍA NO TIENE AUDIO
+
+  if (!archivo) {
+
+    const aviso =
+      document.createElement("p");
+
+    aviso.className = "estado";
+
     aviso.textContent =
       "Audio pendiente de cargar.";
 
     seccion.appendChild(aviso);
 
+    contenedor.appendChild(seccion);
+
+    return;
+
   }
+
+  // CREAR REPRODUCTOR
+
+  const descripcion =
+    document.createElement("p");
+
+  descripcion.textContent =
+    "Pista completa de ensayo";
+
+  const reproductor =
+    document.createElement("audio");
+
+  reproductor.controls = true;
+
+  reproductor.preload = "metadata";
+
+  // Si el archivo comienza con "audios/",
+  // ya tiene su ruta completa y se usa directamente.
+  // En caso contrario, se busca en la carpeta
+  // particular del músico.
+
+  if (archivo.startsWith("audios/")) {
+
+    reproductor.src =
+      archivo
+        .split("/")
+        .map(parte => encodeURIComponent(parte))
+        .join("/");
+
+  } else {
+
+    reproductor.src =
+      musico.carpeta + "/" +
+      encodeURIComponent(archivo);
+
+  }
+
+  const aviso =
+    document.createElement("p");
+
+  aviso.className = "estado";
+
+  aviso.textContent = "Pista de ensayo";
+
+  reproductor.addEventListener(
+    "canplay",
+    () => {
+
+      aviso.textContent =
+        "Audio disponible para escuchar.";
+
+    }
+  );
+
+  reproductor.addEventListener(
+    "error",
+    () => {
+
+      aviso.textContent =
+        "Audio no disponible. Verificá el archivo.";
+
+    }
+  );
+
+  seccion.append(
+    descripcion,
+    reproductor
+  );
+
+  // LUZ, YA SÉ Y A PURA USHUTA:
+  // REPRODUCTOR NORMAL, SIN FADERS
+
+  if (cancion.sinMetronomo) {
+
+    const cartel =
+      document.createElement("p");
+
+    cartel.className = "sin-metronomo";
+
+    cartel.textContent =
+      "Estas van sin metrónomo";
+
+    seccion.appendChild(cartel);
+
+  } else {
+
+    // LAS DEMÁS PISTAS CONSERVAN
+    // LOS DOS FADERS INDEPENDIENTES
+
+    crearMezclador(
+      reproductor,
+      seccion
+    );
+
+  }
+
+  seccion.appendChild(aviso);
 
   contenedor.appendChild(seccion);
 
-});
+}
+
+
+// =====================================================
+// MEZCLADOR ESTÉREO
+// =====================================================
+
+function crearMezclador(
+  reproductor,
+  seccion
+) {
+
+  const contexto = obtenerContexto();
+
+  const fuente =
+    contexto.createMediaElementSource(
+      reproductor
+    );
+
+  const divisor =
+    contexto.createChannelSplitter(2);
+
+  const gananciaL =
+    contexto.createGain();
+
+  const gananciaR =
+    contexto.createGain();
+
+  const mezclador =
+    contexto.createChannelMerger(2);
+
+  // 100% DEL FADER = GANANCIA 2
+
+  gananciaL.gain.value = 2;
+
+  gananciaR.gain.value = 2;
+
+  // MANTENER CADA CANAL EN SU LADO
+
+  fuente.connect(divisor);
+
+  divisor.connect(
+    gananciaL, 0
+  );
+
+  divisor.connect(
+    gananciaR, 1
+  );
+
+  gananciaL.connect(
+    mezclador, 0, 0
+  );
+
+  gananciaR.connect(
+    mezclador, 0, 1
+  );
+
+  mezclador.connect(
+    contexto.destination
+  );
+
+  // ACTIVAR EL AUDIO AL REPRODUCIR
+
+  reproductor.addEventListener(
+    "play",
+    async () => {
+
+      if (contexto.state === "suspended") {
+
+        try {
+
+          await contexto.resume();
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+      }
+
+    }
+  );
+
+  // PANEL DE FADERS
+
+  const panel =
+    document.createElement("div");
+
+  panel.className = "mezclador";
+
+  function crearFader(
+    titulo,
+    etiqueta,
+    ganancia
+  ) {
+
+    const canal =
+      document.createElement("div");
+
+    canal.className = "canal";
+
+    const encabezado =
+      document.createElement("h3");
+
+    encabezado.textContent = titulo;
+
+    const deslizador =
+      document.createElement("input");
+
+    deslizador.type = "range";
+
+    deslizador.className = "fader";
+
+    deslizador.min = "0";
+
+    deslizador.max = "100";
+
+    deslizador.value = "100";
+
+    deslizador.setAttribute(
+      "aria-label",
+      "Volumen canal " + etiqueta
+    );
+
+    const valor =
+      document.createElement("div");
+
+    valor.className = "valor";
+
+    valor.textContent = "100%";
+
+    const texto =
+      document.createElement("div");
+
+    texto.className = "etiqueta";
+
+    texto.textContent = etiqueta;
+
+    deslizador.addEventListener(
+      "input",
+      () => {
+
+        const volumen =
+          Number(deslizador.value) / 100 * 2;
+
+        ganancia.gain.value = volumen;
+
+        valor.textContent =
+          deslizador.value + "%";
+
+      }
+    );
+
+    canal.append(
+      encabezado,
+      deslizador,
+      valor,
+      texto
+    );
+
+    return canal;
+
+  }
+
+  const faderL = crearFader(
+    "CANAL L",
+    "IZQUIERDO",
+    gananciaL
+  );
+
+  const faderR = crearFader(
+    "CANAL R",
+    "DERECHO",
+    gananciaR
+  );
+
+  panel.append(
+    faderL,
+    faderR
+  );
+
+  seccion.appendChild(panel);
+
+}
 
 </script>
 
