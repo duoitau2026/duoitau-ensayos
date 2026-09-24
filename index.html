@@ -20,7 +20,7 @@ body {
       rgba(17, 24, 39, 0.65),
       rgba(17, 24, 39, 0.65)
     ),
-    url("imagen.jpg");
+    url("https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg");
   background-position: center top;
   background-size: auto 450px;
   background-attachment: fixed;
@@ -305,14 +305,20 @@ footer {
 <script>
 
 // =====================================================
+// FONDO PRINCIPAL: TAPA DEL DISCO DESDE INTERNET
+// =====================================================
+
+const fondoPrincipal =
+  "https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg";
+
+
+// =====================================================
 // MÚSICOS, CLAVES Y FONDOS
 // =====================================================
 //
-// Por ahora Emiliano tiene su imagen personalizada.
-// Los demás usan image.png hasta que subas sus fotos.
-//
-// Las claves organizan los paneles, pero no protegen
-// los archivos: están visibles en el código público.
+// Emiliano tiene su imagen personalizada.
+// Los demás usan la tapa del disco hasta que
+// se agreguen sus propias imágenes.
 //
 
 const musicos = {
@@ -323,7 +329,7 @@ const musicos = {
     instrumento: "Panel de pistas",
     icono: "🎸",
     carpeta: "audios",
-    fondo: "image.png"
+    fondo: fondoPrincipal
   },
 
   emiliano: {
@@ -341,7 +347,7 @@ const musicos = {
     instrumento: "Bandoneón",
     icono: "🪗",
     carpeta: "audios/marcos",
-    fondo: "image.png"
+    fondo: fondoPrincipal
   },
 
   flor: {
@@ -350,7 +356,7 @@ const musicos = {
     instrumento: "Piano",
     icono: "🎹",
     carpeta: "audios/flor",
-    fondo: "image.png"
+    fondo: fondoPrincipal
   },
 
   hernan: {
@@ -359,7 +365,7 @@ const musicos = {
     instrumento: "Guitarra",
     icono: "🎸",
     carpeta: "audios/hernan",
-    fondo: "image.png"
+    fondo: fondoPrincipal
   },
 
   marculi: {
@@ -368,7 +374,7 @@ const musicos = {
     instrumento: "Bajo",
     icono: "🎸",
     carpeta: "audios/marculi",
-    fondo: "image.png"
+    fondo: fondoPrincipal
   },
 
   diego: {
@@ -377,7 +383,7 @@ const musicos = {
     instrumento: "Guitarra eléctrica",
     icono: "🎸",
     carpeta: "audios/diego",
-    fondo: "image.png"
+    fondo: fondoPrincipal
   }
 
 };
@@ -387,13 +393,13 @@ const musicos = {
 // CAMBIAR LA IMAGEN DE FONDO
 // =====================================================
 
-function cambiarFondo(nombreArchivo) {
+function cambiarFondo(imagen) {
 
   document.body.style.backgroundImage =
     'linear-gradient(' +
       'rgba(17, 24, 39, 0.65),' +
       'rgba(17, 24, 39, 0.65)' +
-    '), url("' + encodeURI(nombreArchivo) + '")';
+    '), url("' + imagen + '")';
 
 }
 
@@ -515,10 +521,6 @@ const canciones = [
 // =====================================================
 // ARCHIVOS PROPIOS DE CADA MÚSICO
 // =====================================================
-//
-// Los archivos que empiezan con "audios/" usan
-// esa ruta directamente, sin duplicar el MP3.
-//
 
 const archivosPorMusico = {
 
@@ -528,7 +530,7 @@ const archivosPorMusico = {
     "Tierra": "tierra pa emi.mp3",
     "Luz": "luz.mp3",
 
-    // Misma pista que Germán:
+    // Comparte el mismo MP3 que Germán:
     "A pura ushuta":
       "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
   },
@@ -589,8 +591,6 @@ const participacionPorMusico = {
     "Ya sé (cierre)",
     "A pura ushuta"
   ],
-
-  // Marculi toca todas menos las dos solistas.
 
   marculi: canciones
     .slice(2)
@@ -701,8 +701,6 @@ function abrirPanel(idMusico) {
 
   const musico = musicos[idMusico];
 
-  // CAMBIAR EL FONDO SEGÚN EL MÚSICO
-
   cambiarFondo(musico.fondo);
 
   detenerAudios();
@@ -776,9 +774,9 @@ botonSalir.addEventListener(
 
     pantallaIngreso.classList.remove("oculto");
 
-    // RESTAURAR EL FONDO DE INGRESO
+    // VOLVER A LA TAPA DE LUNA NUEVA
 
-    cambiarFondo("image.png");
+    cambiarFondo(fondoPrincipal);
 
     mensajeError.textContent = "";
 
@@ -903,8 +901,7 @@ function crearCancion(
 
   reproductor.preload = "metadata";
 
-  // SI EL ARCHIVO YA TIENE RUTA COMPLETA,
-  // USARLA DIRECTAMENTE.
+  // USAR RUTA COMPARTIDA SI YA COMIENZA CON audios/
 
   if (archivo.startsWith("audios/")) {
 
@@ -971,9 +968,6 @@ function crearCancion(
 
   } else {
 
-    // LAS DEMÁS PISTAS CONSERVAN
-    // LOS DOS FADERS INDEPENDIENTES
-
     crearMezclador(
       reproductor,
       seccion
@@ -1016,13 +1010,9 @@ function crearMezclador(
   const mezclador =
     contexto.createChannelMerger(2);
 
-  // 100% DEL FADER = GANANCIA 2
-
   gananciaL.gain.value = 2;
 
   gananciaR.gain.value = 2;
-
-  // MANTENER CADA CANAL EN SU LADO
 
   fuente.connect(divisor);
 
@@ -1046,8 +1036,6 @@ function crearMezclador(
     contexto.destination
   );
 
-  // ACTIVAR EL AUDIO AL REPRODUCIR
-
   reproductor.addEventListener(
     "play",
     async () => {
@@ -1068,8 +1056,6 @@ function crearMezclador(
 
     }
   );
-
-  // PANEL DE FADERS
 
   const panel =
     document.createElement("div");
