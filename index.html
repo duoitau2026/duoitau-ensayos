@@ -305,12 +305,14 @@ footer {
 <script>
 
 // =====================================================
-// MÚSICOS Y CLAVES
+// MÚSICOS, CLAVES Y FONDOS
 // =====================================================
 //
-// Estas claves están visibles en el código público.
-// Sirven para organizar los paneles, no para
-// proteger los archivos de audio.
+// Por ahora Emiliano tiene su imagen personalizada.
+// Los demás usan image.png hasta que subas sus fotos.
+//
+// Las claves organizan los paneles, pero no protegen
+// los archivos: están visibles en el código público.
 //
 
 const musicos = {
@@ -320,7 +322,8 @@ const musicos = {
     clave: "claudiogeno",
     instrumento: "Panel de pistas",
     icono: "🎸",
-    carpeta: "audios"
+    carpeta: "audios",
+    fondo: "image.png"
   },
 
   emiliano: {
@@ -328,7 +331,8 @@ const musicos = {
     clave: "flute",
     instrumento: "Flauta y quena",
     icono: "🪈",
-    carpeta: "audios/emiliano"
+    carpeta: "audios/emiliano",
+    fondo: "emiliano.png"
   },
 
   marcos: {
@@ -336,7 +340,8 @@ const musicos = {
     clave: "tango",
     instrumento: "Bandoneón",
     icono: "🪗",
-    carpeta: "audios/marcos"
+    carpeta: "audios/marcos",
+    fondo: "image.png"
   },
 
   flor: {
@@ -344,7 +349,8 @@ const musicos = {
     clave: "magico",
     instrumento: "Piano",
     icono: "🎹",
-    carpeta: "audios/flor"
+    carpeta: "audios/flor",
+    fondo: "image.png"
   },
 
   hernan: {
@@ -352,7 +358,8 @@ const musicos = {
     clave: "vc",
     instrumento: "Guitarra",
     icono: "🎸",
-    carpeta: "audios/hernan"
+    carpeta: "audios/hernan",
+    fondo: "image.png"
   },
 
   marculi: {
@@ -360,7 +367,8 @@ const musicos = {
     clave: "bajeo",
     instrumento: "Bajo",
     icono: "🎸",
-    carpeta: "audios/marculi"
+    carpeta: "audios/marculi",
+    fondo: "image.png"
   },
 
   diego: {
@@ -368,10 +376,26 @@ const musicos = {
     clave: "cerati",
     instrumento: "Guitarra eléctrica",
     icono: "🎸",
-    carpeta: "audios/diego"
+    carpeta: "audios/diego",
+    fondo: "image.png"
   }
 
 };
+
+
+// =====================================================
+// CAMBIAR LA IMAGEN DE FONDO
+// =====================================================
+
+function cambiarFondo(nombreArchivo) {
+
+  document.body.style.backgroundImage =
+    'linear-gradient(' +
+      'rgba(17, 24, 39, 0.65),' +
+      'rgba(17, 24, 39, 0.65)' +
+    '), url("' + encodeURI(nombreArchivo) + '")';
+
+}
 
 
 // =====================================================
@@ -492,13 +516,8 @@ const canciones = [
 // ARCHIVOS PROPIOS DE CADA MÚSICO
 // =====================================================
 //
-// Cada músico tiene sus propios MP3.
-//
-// Cuando dos músicos usan el mismo archivo, se puede
-// indicar la ruta completa sin duplicar el MP3.
-//
-// Por ejemplo, Emiliano usa la misma pista de
-// "A pura ushuta" que Germán.
+// Los archivos que empiezan con "audios/" usan
+// esa ruta directamente, sin duplicar el MP3.
 //
 
 const archivosPorMusico = {
@@ -509,7 +528,7 @@ const archivosPorMusico = {
     "Tierra": "tierra pa emi.mp3",
     "Luz": "luz.mp3",
 
-    // MISMO MP3 QUE GERMÁN:
+    // Misma pista que Germán:
     "A pura ushuta":
       "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
   },
@@ -682,6 +701,10 @@ function abrirPanel(idMusico) {
 
   const musico = musicos[idMusico];
 
+  // CAMBIAR EL FONDO SEGÚN EL MÚSICO
+
+  cambiarFondo(musico.fondo);
+
   detenerAudios();
 
   contenedor.replaceChildren();
@@ -752,6 +775,10 @@ botonSalir.addEventListener(
     panelMusico.classList.add("oculto");
 
     pantallaIngreso.classList.remove("oculto");
+
+    // RESTAURAR EL FONDO DE INGRESO
+
+    cambiarFondo("image.png");
 
     mensajeError.textContent = "";
 
@@ -876,10 +903,8 @@ function crearCancion(
 
   reproductor.preload = "metadata";
 
-  // Si el archivo comienza con "audios/",
-  // ya tiene su ruta completa y se usa directamente.
-  // En caso contrario, se busca en la carpeta
-  // particular del músico.
+  // SI EL ARCHIVO YA TIENE RUTA COMPLETA,
+  // USARLA DIRECTAMENTE.
 
   if (archivo.startsWith("audios/")) {
 
