@@ -7,18 +7,13 @@
 <title>Dúo Itaú - Sala de ensayos</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   background-color: #111827;
   background-image:
-    linear-gradient(
-      rgba(17, 24, 39, 0.65),
-      rgba(17, 24, 39, 0.65)
-    ),
+    linear-gradient(rgba(17,24,39,.65), rgba(17,24,39,.65)),
     url("https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg");
   background-position: center top;
   background-size: auto 450px;
@@ -31,7 +26,7 @@ body {
 header {
   text-align: center;
   padding: 35px 15px;
-  background: rgba(31, 41, 55, 0.85);
+  background: rgba(31,41,55,.85);
 }
 
 h1 {
@@ -39,9 +34,7 @@ h1 {
   margin-bottom: 5px;
 }
 
-header p {
-  color: #d1d5db;
-}
+header p { color: #d1d5db; }
 
 .aliento {
   display: inline-block;
@@ -51,10 +44,10 @@ header p {
   color: #111827;
   border: 3px solid white;
   border-radius: 14px;
-  font-size: clamp(20px, 5vw, 34px);
+  font-size: clamp(20px,5vw,34px);
   font-weight: 900;
   letter-spacing: 1px;
-  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 5px 18px rgba(0,0,0,.4);
   transform: rotate(-2deg);
 }
 
@@ -79,7 +72,7 @@ main {
   margin: 35px auto;
   padding: 30px 22px;
   text-align: center;
-  background: rgba(31, 41, 55, 0.95);
+  background: rgba(31,41,55,.95);
   border: 1px solid #4b5563;
   border-radius: 16px;
 }
@@ -124,7 +117,7 @@ button:hover {
   text-align: center;
   padding: 22px;
   margin-bottom: 20px;
-  background: rgba(31, 41, 55, 0.92);
+  background: rgba(31,41,55,.92);
   border-radius: 14px;
 }
 
@@ -148,7 +141,7 @@ button:hover {
 /* CANCIONES */
 
 .cancion {
-  background: rgba(31, 41, 55, 0.88);
+  background: rgba(31,41,55,.88);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 15px;
@@ -221,7 +214,7 @@ audio {
 .canal {
   flex: 1;
   max-width: 180px;
-  background: rgba(17, 24, 39, 0.9);
+  background: rgba(17,24,39,.9);
   border: 1px solid #374151;
   border-radius: 12px;
   padding: 15px;
@@ -259,7 +252,7 @@ footer {
   text-align: center;
   padding: 25px;
   color: #d1d5db;
-  background: rgba(17, 24, 39, 0.7);
+  background: rgba(17,24,39,.7);
 }
 </style>
 </head>
@@ -270,7 +263,10 @@ footer {
   <h1>DÚO ITAÚ</h1>
   <h2>SALA DE ENSAYOS</h2>
   <p>Presentación del disco LUNA NUEVA</p>
-  <p class="aliento">¡VAMOOOO PAPIRRIIII! 🎸🔥</p>
+
+  <p id="mensajeAliento" class="aliento">
+    ¡VAMOOOO PAPIRRIIII! 🎸🔥
+  </p>
 </header>
 
 <main>
@@ -295,7 +291,7 @@ footer {
 
   </form>
 
-  <p id="mensajeError" class="error" role="alert"></p>
+  <p id="mensajeError" class="error"></p>
 
 </section>
 
@@ -327,16 +323,16 @@ footer {
 
 <script>
 
-// =====================================================
-// FONDO PRINCIPAL
-// =====================================================
+/* =====================================================
+   FONDO PRINCIPAL
+===================================================== */
 
 const fondoPrincipal =
-  "https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg";
+"https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg";
 
-// =====================================================
-// MÚSICOS
-// =====================================================
+/* =====================================================
+   MÚSICOS
+===================================================== */
 
 const musicos = {
 
@@ -373,8 +369,6 @@ const musicos = {
     instrumento: "Piano",
     icono: "🎹",
     carpeta: "audios/para flor",
-
-    // FOTO DE FLOR
     fondo: "flor.png"
   },
 
@@ -407,23 +401,21 @@ const musicos = {
 
 };
 
-// =====================================================
-// CAMBIAR FONDO
-// =====================================================
+/* =====================================================
+   CAMBIAR FONDO
+===================================================== */
 
 function cambiarFondo(imagen) {
 
   document.body.style.backgroundImage =
-    'linear-gradient(' +
-      'rgba(17,24,39,0.65),' +
-      'rgba(17,24,39,0.65)' +
-    '), url("' + imagen + '")';
-
+    'linear-gradient(rgba(17,24,39,.65),rgba(17,24,39,.65)),url("' +
+    imagen +
+    '")';
 }
 
-// =====================================================
-// CANCIONES
-// =====================================================
+/* =====================================================
+   CANCIONES
+===================================================== */
 
 const canciones = [
 
@@ -534,9 +526,9 @@ const canciones = [
 
 ];
 
-// =====================================================
-// ARCHIVOS POR MÚSICO
-// =====================================================
+/* =====================================================
+   ARCHIVOS POR MÚSICO
+===================================================== */
 
 const archivosPorMusico = {
 
@@ -570,11 +562,6 @@ const archivosPorMusico = {
       "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
   },
 
-  // =================================================
-  // FLOR
-  // Carpeta: audios/para flor
-  // =================================================
-
   flor: {
 
     "Pasajera":
@@ -590,7 +577,13 @@ const archivosPorMusico = {
       "mejor conmigo pa flor.mp3",
 
     "Milagro":
-      "milagro pa flor.mp3"
+      "milagro pa flor.mp3",
+
+    "Ya sé (cierre)":
+      "audios/YA SE.mp3",
+
+    "A pura ushuta":
+      "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
   },
 
   hernan: {
@@ -617,9 +610,9 @@ const archivosPorMusico = {
 
 };
 
-// =====================================================
-// VIDEOS DE YOUTUBE PARA HERNÁN
-// =====================================================
+/* =====================================================
+   YOUTUBE HERNÁN
+===================================================== */
 
 const videosHernan = {
 
@@ -637,9 +630,9 @@ const videosHernan = {
 
 };
 
-// =====================================================
-// PARTICIPACIÓN
-// =====================================================
+/* =====================================================
+   PARTICIPACIÓN
+===================================================== */
 
 const participacionPorMusico = {
 
@@ -688,9 +681,9 @@ const participacionPorMusico = {
 
 };
 
-// =====================================================
-// MOTOR DE AUDIO
-// =====================================================
+/* =====================================================
+   MOTOR DE AUDIO
+===================================================== */
 
 const AudioContextClass =
   window.AudioContext ||
@@ -701,17 +694,15 @@ let contextoAudio = null;
 function obtenerContexto() {
 
   if (!contextoAudio) {
-    contextoAudio =
-      new AudioContextClass();
+    contextoAudio = new AudioContextClass();
   }
 
   return contextoAudio;
-
 }
 
-// =====================================================
-// ELEMENTOS
-// =====================================================
+/* =====================================================
+   ELEMENTOS
+===================================================== */
 
 const pantallaIngreso =
   document.getElementById("pantallaIngreso");
@@ -743,13 +734,16 @@ const iconoInstrumento =
 const botonSalir =
   document.getElementById("botonSalir");
 
-// =====================================================
-// LOGIN
-// =====================================================
+const mensajeAliento =
+  document.getElementById("mensajeAliento");
+
+/* =====================================================
+   LOGIN
+===================================================== */
 
 formularioIngreso.addEventListener(
   "submit",
-  (evento) => {
+  evento => {
 
     evento.preventDefault();
 
@@ -769,24 +763,21 @@ formularioIngreso.addEventListener(
         "Clave incorrecta. Intentá nuevamente.";
 
       campoClave.value = "";
-
       campoClave.focus();
 
       return;
     }
 
     mensajeError.textContent = "";
-
     campoClave.value = "";
 
     abrirPanel(idMusico);
-
   }
 );
 
-// =====================================================
-// ABRIR PANEL
-// =====================================================
+/* =====================================================
+   ABRIR PANEL
+===================================================== */
 
 function abrirPanel(idMusico) {
 
@@ -796,6 +787,19 @@ function abrirPanel(idMusico) {
   cambiarFondo(
     musico.fondo
   );
+
+  /* MENSAJE ESPECIAL PARA FLOR */
+
+  if (idMusico === "flor") {
+
+    mensajeAliento.textContent =
+      "¡ES MÁGICOOOO! ✨🎹";
+
+  } else {
+
+    mensajeAliento.textContent =
+      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
+  }
 
   detenerAudios();
 
@@ -833,29 +837,22 @@ function abrirPanel(idMusico) {
   );
 
   window.scrollTo(0, 0);
-
 }
 
-// =====================================================
-// DETENER AUDIOS Y VIDEOS
-// =====================================================
+/* =====================================================
+   DETENER AUDIOS Y VIDEOS
+===================================================== */
 
 function detenerAudios() {
 
   const reproductores =
-    contenedor.querySelectorAll(
-      "audio"
-    );
+    contenedor.querySelectorAll("audio");
 
   reproductores.forEach(
     reproductor => {
 
       reproductor.pause();
-
-      reproductor.removeAttribute(
-        "src"
-      );
-
+      reproductor.removeAttribute("src");
       reproductor.load();
 
     }
@@ -868,12 +865,11 @@ function detenerAudios() {
       video.removeAttribute("src");
 
     });
-
 }
 
-// =====================================================
-// SALIR
-// =====================================================
+/* =====================================================
+   SALIR
+===================================================== */
 
 botonSalir.addEventListener(
   "click",
@@ -895,10 +891,13 @@ botonSalir.addEventListener(
       fondoPrincipal
     );
 
+    /* VOLVER AL MENSAJE GENERAL */
+
+    mensajeAliento.textContent =
+      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
+
     mensajeError.textContent = "";
-
     campoClave.value = "";
-
     campoClave.focus();
 
     window.scrollTo(0, 0);
@@ -906,9 +905,9 @@ botonSalir.addEventListener(
   }
 );
 
-// =====================================================
-// CREAR CANCIÓN
-// =====================================================
+/* =====================================================
+   CREAR CANCIÓN
+===================================================== */
 
 function crearCancion(
   cancion,
@@ -922,28 +921,20 @@ function crearCancion(
       .padStart(2, "0");
 
   const seccion =
-    document.createElement(
-      "section"
-    );
+    document.createElement("section");
 
   seccion.className =
     "cancion";
 
   const nombre =
-    document.createElement(
-      "h2"
-    );
+    document.createElement("h2");
 
   nombre.textContent =
     numero +
     " - " +
     cancion.titulo;
 
-  seccion.appendChild(
-    nombre
-  );
-
-  // PARTICIPACIÓN
+  seccion.appendChild(nombre);
 
   let participa = false;
 
@@ -960,15 +951,12 @@ function crearCancion(
       ].includes(
         cancion.titulo
       );
-
   }
 
   if (!participa) {
 
     const aviso =
-      document.createElement(
-        "p"
-      );
+      document.createElement("p");
 
     aviso.className =
       "estado";
@@ -977,18 +965,12 @@ function crearCancion(
       musico.nombre +
       " no participa en este tema.";
 
-    seccion.appendChild(
-      aviso
-    );
+    seccion.appendChild(aviso);
 
-    contenedor.appendChild(
-      seccion
-    );
+    contenedor.appendChild(seccion);
 
     return;
   }
-
-  // BUSCAR ARCHIVO
 
   let archivo = "";
 
@@ -1003,17 +985,12 @@ function crearCancion(
       archivosPorMusico[
         idMusico
       ][cancion.titulo] || "";
-
   }
-
-  // AUDIO PENDIENTE
 
   if (!archivo) {
 
     const aviso =
-      document.createElement(
-        "p"
-      );
+      document.createElement("p");
 
     aviso.className =
       "estado";
@@ -1021,43 +998,27 @@ function crearCancion(
     aviso.textContent =
       "Audio pendiente de cargar.";
 
-    seccion.appendChild(
-      aviso
-    );
+    seccion.appendChild(aviso);
 
-    contenedor.appendChild(
-      seccion
-    );
+    contenedor.appendChild(seccion);
 
     return;
   }
 
-  // REPRODUCTOR
-
   const descripcion =
-    document.createElement(
-      "p"
-    );
+    document.createElement("p");
 
   descripcion.textContent =
     "Pista completa de ensayo";
 
   const reproductor =
-    document.createElement(
-      "audio"
-    );
+    document.createElement("audio");
 
   reproductor.controls = true;
-
-  reproductor.preload =
-    "metadata";
-
-  // RUTA DEL ARCHIVO
+  reproductor.preload = "metadata";
 
   if (
-    archivo.startsWith(
-      "audios/"
-    )
+    archivo.startsWith("audios/")
   ) {
 
     reproductor.src =
@@ -1065,9 +1026,7 @@ function crearCancion(
         .split("/")
         .map(
           parte =>
-            encodeURIComponent(
-              parte
-            )
+            encodeURIComponent(parte)
         )
         .join("/");
 
@@ -1079,13 +1038,10 @@ function crearCancion(
       encodeURIComponent(
         archivo
       );
-
   }
 
   const aviso =
-    document.createElement(
-      "p"
-    );
+    document.createElement("p");
 
   aviso.className =
     "estado";
@@ -1118,16 +1074,12 @@ function crearCancion(
     reproductor
   );
 
-  // SIN METRÓNOMO
-
   if (
     cancion.sinMetronomo
   ) {
 
     const cartel =
-      document.createElement(
-        "p"
-      );
+      document.createElement("p");
 
     cartel.className =
       "sin-metronomo";
@@ -1135,9 +1087,7 @@ function crearCancion(
     cartel.textContent =
       "Estas van sin metrónomo";
 
-    seccion.appendChild(
-      cartel
-    );
+    seccion.appendChild(cartel);
 
   } else {
 
@@ -1145,16 +1095,11 @@ function crearCancion(
       reproductor,
       seccion
     );
-
   }
 
-  seccion.appendChild(
-    aviso
-  );
+  seccion.appendChild(aviso);
 
-  // =================================================
-  // YOUTUBE SOLO PARA HERNÁN
-  // =================================================
+  /* YOUTUBE SOLO HERNÁN */
 
   if (
     idMusico === "hernan" &&
@@ -1164,33 +1109,25 @@ function crearCancion(
   ) {
 
     const bloqueVideo =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
     bloqueVideo.className =
       "video-ensayo";
 
     const tituloVideo =
-      document.createElement(
-        "h3"
-      );
+      document.createElement("h3");
 
     tituloVideo.textContent =
       "▶ Video de YouTube para ensayar";
 
     const contenedorVideo =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
     contenedorVideo.className =
       "video-contenedor";
 
     const video =
-      document.createElement(
-        "iframe"
-      );
+      document.createElement("iframe");
 
     video.src =
       "https://www.youtube.com/embed/" +
@@ -1202,14 +1139,12 @@ function crearCancion(
       "Video de ensayo: " +
       cancion.titulo;
 
-    video.loading =
-      "lazy";
+    video.loading = "lazy";
 
     video.allow =
       "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
 
-    video.allowFullscreen =
-      true;
+    video.allowFullscreen = true;
 
     contenedorVideo.appendChild(
       video
@@ -1223,18 +1158,16 @@ function crearCancion(
     seccion.appendChild(
       bloqueVideo
     );
-
   }
 
   contenedor.appendChild(
     seccion
   );
-
 }
 
-// =====================================================
-// MEZCLADOR ESTÉREO
-// =====================================================
+/* =====================================================
+   MEZCLADOR ESTÉREO
+===================================================== */
 
 function crearMezclador(
   reproductor,
@@ -1245,14 +1178,12 @@ function crearMezclador(
     obtenerContexto();
 
   const fuente =
-    contexto
-      .createMediaElementSource(
-        reproductor
-      );
+    contexto.createMediaElementSource(
+      reproductor
+    );
 
   const divisor =
-    contexto
-      .createChannelSplitter(2);
+    contexto.createChannelSplitter(2);
 
   const gananciaL =
     contexto.createGain();
@@ -1261,16 +1192,12 @@ function crearMezclador(
     contexto.createGain();
 
   const mezclador =
-    contexto
-      .createChannelMerger(2);
+    contexto.createChannelMerger(2);
 
   gananciaL.gain.value = 2;
-
   gananciaR.gain.value = 2;
 
-  fuente.connect(
-    divisor
-  );
+  fuente.connect(divisor);
 
   divisor.connect(
     gananciaL,
@@ -1313,21 +1240,15 @@ function crearMezclador(
 
         } catch (error) {
 
-          console.error(
-            error
-          );
+          console.error(error);
 
         }
-
       }
-
     }
   );
 
   const panel =
-    document.createElement(
-      "div"
-    );
+    document.createElement("div");
 
   panel.className =
     "mezclador";
@@ -1339,25 +1260,19 @@ function crearMezclador(
   ) {
 
     const canal =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
     canal.className =
       "canal";
 
     const encabezado =
-      document.createElement(
-        "h3"
-      );
+      document.createElement("h3");
 
     encabezado.textContent =
       titulo;
 
     const deslizador =
-      document.createElement(
-        "input"
-      );
+      document.createElement("input");
 
     deslizador.type =
       "range";
@@ -1381,9 +1296,7 @@ function crearMezclador(
     );
 
     const valor =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
     valor.className =
       "valor";
@@ -1392,9 +1305,7 @@ function crearMezclador(
       "100%";
 
     const texto =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
     texto.className =
       "etiqueta";
@@ -1453,7 +1364,6 @@ function crearMezclador(
   seccion.appendChild(
     panel
   );
-
 }
 
 </script>
