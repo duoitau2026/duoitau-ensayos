@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Dúo Itaú - Sala de ensayos</title>
 
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -34,7 +35,9 @@ h1 {
   margin-bottom: 5px;
 }
 
-header p { color: #d1d5db; }
+header p {
+  color: #d1d5db;
+}
 
 .aliento {
   display: inline-block;
@@ -202,7 +205,7 @@ audio {
   border: 0;
 }
 
-/* PARTITURA */
+/* PARTITURAS */
 
 .partitura-ensayo {
   margin-top: 22px;
@@ -213,37 +216,26 @@ audio {
 .partitura-ensayo h3 {
   color: #facc15;
   font-size: 18px;
-  margin: 0 0 12px;
 }
 
-.partitura-contenedor {
+.partitura-ensayo iframe {
+  display: block;
   width: 100%;
-  height: 750px;
-  background: white;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.partitura-contenedor iframe {
-  width: 100%;
-  height: 100%;
+  height: 700px;
   border: 0;
+  border-radius: 10px;
   background: white;
 }
 
-.abrir-partitura {
+.partitura-ensayo a {
   display: inline-block;
   margin-top: 12px;
-  padding: 11px 18px;
+  padding: 11px 16px;
   background: #facc15;
   color: #111827;
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-}
-
-.abrir-partitura:hover {
-  background: #fde047;
 }
 
 /* FADERS */
@@ -300,7 +292,6 @@ footer {
 }
 
 @media (max-width: 600px) {
-
   main {
     padding: 12px;
   }
@@ -309,10 +300,9 @@ footer {
     padding: 15px;
   }
 
-  .partitura-contenedor {
-    height: 600px;
+  .partitura-ensayo iframe {
+    height: 520px;
   }
-
 }
 </style>
 </head>
@@ -320,73 +310,67 @@ footer {
 <body>
 
 <header>
-
   <h1>DÚO ITAÚ</h1>
-
   <h2>SALA DE ENSAYOS</h2>
-
   <p>Presentación del disco LUNA NUEVA</p>
 
   <p id="mensajeAliento" class="aliento">
     ¡VAMOOOO PAPIRRIIII! 🎸🔥
   </p>
-
 </header>
 
 <main>
 
-<section id="pantallaIngreso" class="ingreso">
+  <section id="pantallaIngreso" class="ingreso">
 
-  <h2>🎵 INGRESO DE MÚSICOS</h2>
+    <h2>🎵 INGRESO DE MÚSICOS</h2>
 
-  <p>
-    Escribí tu clave para entrar a tu panel de ensayo.
-  </p>
+    <p>
+      Escribí tu clave para entrar a tu panel de ensayo.
+    </p>
 
-  <form id="formularioIngreso">
+    <form id="formularioIngreso">
 
-    <input
-      id="campoClave"
-      type="password"
-      placeholder="Tu clave"
-      autocomplete="off"
-      required
-    >
+      <input
+        id="campoClave"
+        type="password"
+        placeholder="Tu clave"
+        autocomplete="off"
+        required
+      >
 
-    <button type="submit">
-      ENTRAR
-    </button>
+      <button type="submit">
+        ENTRAR
+      </button>
 
-  </form>
+    </form>
 
-  <p id="mensajeError" class="error"></p>
-
-</section>
-
-<div id="panelMusico" class="oculto">
-
-  <section class="panel-encabezado">
-
-    <div
-      id="iconoInstrumento"
-      class="instrumento">
-    </div>
-
-    <h2 id="nombreMusico"></h2>
-
-    <p id="nombreInstrumento"></p>
-
-    <button
-      id="botonSalir"
-      class="salir">
-      Salir de mi panel
-    </button>
+    <p id="mensajeError" class="error"></p>
 
   </section>
 
-  <div id="canciones"></div>
+  <div id="panelMusico" class="oculto">
 
-</div>
+    <section class="panel-encabezado">
+
+      <div
+        id="iconoInstrumento"
+        class="instrumento">
+      </div>
+
+      <h2 id="nombreMusico"></h2>
+
+      <p id="nombreInstrumento"></p>
+
+      <button id="botonSalir" class="salir">
+        Salir de mi panel
+      </button>
+
+    </section>
+
+    <div id="canciones"></div>
+
+  </div>
 
 </main>
 
@@ -401,8 +385,7 @@ footer {
 ===================================================== */
 
 const fondoPrincipal =
-"https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg";
-
+  "https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg";
 
 /* =====================================================
    MÚSICOS
@@ -411,89 +394,72 @@ const fondoPrincipal =
 const musicos = {
 
   german: {
-
     nombre: "Germán",
     clave: "claudiogeno",
     instrumento: "Panel de pistas",
     icono: "🎸",
     carpeta: "audios",
-
     fondo:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYwxS4RUsnIqx_PcJyI7HqAN0ENuC78XbxJBA6e97eJA&s"
-
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYwxS4RUsnIqx_PcJyI7HqAN0ENuC78XbxJBA6e97eJA&s"
   },
 
   emiliano: {
-
     nombre: "Emiliano",
     clave: "flute",
     instrumento: "Flauta y quena",
     icono: "🪈",
     carpeta: "audios/emiliano",
     fondo: "emiliano.png"
-
   },
 
   marcos: {
-
     nombre: "Marcos",
     clave: "tango",
     instrumento: "Bandoneón",
     icono: "🪗",
     carpeta: "audios/pa bandoneon",
-
     fondo:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW1NHI9FGz6Cek_zZgzZ2F27xve1UcWZe_KEWOgr5TXA&s"
-
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW1NHI9FGz6Cek_zZgzZ2F27xve1UcWZe_KEWOgr5TXA&s"
   },
 
   flor: {
-
     nombre: "Flor",
     clave: "magico",
     instrumento: "Piano",
     icono: "🎹",
     carpeta: "audios/para flor",
     fondo: "flor.png"
-
   },
 
   hernan: {
-
     nombre: "Hernán",
     clave: "vc",
     instrumento: "Guitarra",
     icono: "🎸",
     carpeta: "audios/pa hernan",
-
     fondo:
-    "https://scontent.fros2-2.fna.fbcdn.net/v/t39.30808-6/506628262_10235494435397587_3104701208956728019_n.jpg?stp=dst-jpg_tt6&cstp=mx1080x1080&ctp=s1080x1080&_nc_cat=110&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHviiGrxVqnR9MnMGnU75Il98x4yeK_BQ33zHjJ4r8FDZmmvsLq-_cj4FvuelrKXq-5q3BkYdki1kaJcgT2jMAH&_nc_ohc=ewev1Xi_SCUQ7kNvwEGSG_Y&_nc_oc=Ado0jThQihdT2PuWOmyrsFa3HAOl0rQatbDsHk3_M_xPn5P2vozMAUBE_0EL0oaMZno&_nc_zt=23&_nc_ht=scontent.fros2-2.fna&_nc_gid=8fsoL2zpsNoe41nk09QjHA&_nc_ss=7b2a8&oh=00_AQLajcAZ8uXkhPFCSbgOWuqzuN4JeVXbJIqQ6wWq6R5cMA&oe=6ABB5463"
-
+      "https://scontent.fros2-2.fna.fbcdn.net/v/t39.30808-6/506628262_10235494435397587_3104701208956728019_n.jpg?stp=dst-jpg_tt6&cstp=mx1080x1080&ctp=s1080x1080&_nc_cat=110&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHviiGrxVqnR9MnMGnU75Il98x4yeK_BQ33zHjJ4r8FDZmmvsLq-_cj4FvuelrKXq-5q3BkYdki1kaJcgT2jMAH&_nc_ohc=ewev1Xi_SCUQ7kNvwEGSG_Y&_nc_oc=Ado0jThQihdT2PuWOmyrsFa3HAOl0rQatbDsHk3_M_xPn5P2vozMAUBE_0EL0oaMZno&_nc_zt=23&_nc_ht=scontent.fros2-2.fna&_nc_gid=8fsoL2zpsNoe41nk09QjHA&_nc_ss=7b2a8&oh=00_AQLajcAZ8uXkhPFCSbgOWuqzuN4JeVXbJIqQ6wWq6R5cMA&oe=6ABB5463"
   },
 
   marculi: {
-
     nombre: "Marculi",
     clave: "bajeo",
     instrumento: "Bajo",
     icono: "🎸",
     carpeta: "audios/marculi",
     fondo: fondoPrincipal
-
   },
 
   diego: {
-
     nombre: "Diego",
     clave: "cerati",
     instrumento: "Guitarra eléctrica",
     icono: "🎸",
-    carpeta: "audios/diego",
+    carpeta: "audios/pa diego",
     fondo: "diego.jpg"
   }
 
 };
-
 
 /* =====================================================
    CAMBIAR FONDO
@@ -507,7 +473,6 @@ function cambiarFondo(imagen) {
     '")';
 
 }
-
 
 /* =====================================================
    CANCIONES
@@ -541,86 +506,74 @@ const canciones = [
 
   {
     titulo: "Luna Nueva",
-    archivoGerman:
-      "01 LUNA NUEVA pa german.mp3",
+    archivoGerman: "01 LUNA NUEVA pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Grieta",
-    archivoGerman:
-      "04 GRIETA CLOCK pa german.mp3",
+    archivoGerman: "04 GRIETA CLOCK pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Mejor conmigo",
-    archivoGerman:
-      "mejor conmigo pista clock pa german.mp3",
+    archivoGerman: "mejor conmigo pista clock pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "El simple valor",
-    archivoGerman:
-      "el simple valor pista clock pa german.mp3",
+    archivoGerman: "el simple valor pista clock pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Indiferencia plena",
-    archivoGerman:
-      "indiferencia plena pa german.mp3",
+    archivoGerman: "indiferencia plena pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Pasajera",
-    archivoGerman:
-      "06 PASAJERA pa german.mp3",
+    archivoGerman: "06 PASAJERA pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Tierra",
-    archivoGerman:
-      "tierra pa german.mp3",
+    archivoGerman: "tierra pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Copla ancestral",
-    archivoGerman:
-      "copla ancestral pa german.mp3",
+    archivoGerman: "copla ancestral pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Milagro",
-    archivoGerman:
-      "milagro pa german.mp3",
+    archivoGerman: "milagro pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Dueña del tiempo",
-    archivoGerman:
-      "10 dueña del tiempo pa german.mp3",
+    archivoGerman: "10 dueña del tiempo pa german.mp3",
     participaGerman: true
   },
 
   {
     titulo: "Luz",
-    archivoGerman:
-      "luz.mp3",
+    archivoGerman: "luz.mp3",
     participaGerman: true,
     sinMetronomo: true
   },
 
   {
     titulo: "Ya sé (cierre)",
-    archivoGerman:
-      "YA SE.mp3",
+    archivoGerman: "YA SE.mp3",
     participaGerman: true,
     sinMetronomo: true
   },
@@ -634,7 +587,6 @@ const canciones = [
   }
 
 ];
-
 
 /* =====================================================
    ARCHIVOS POR MÚSICO
@@ -720,10 +672,17 @@ const archivosPorMusico = {
 
   marculi: {},
 
-  diego: {}
+  diego: {
+
+    "Copla ancestral":
+      "copla ancestral pa diego.mp3",
+
+    "Ya sé (cierre)":
+      "ya se pistas (1).mp3"
+
+  }
 
 };
-
 
 /* =====================================================
    VIDEOS HERNÁN
@@ -745,7 +704,6 @@ const videosHernan = {
 
 };
 
-
 /* =====================================================
    VIDEOS FLOR
 ===================================================== */
@@ -757,1132 +715,8 @@ const videosFlor = {
 
 };
 
-
 /* =====================================================
-   PARTITURAS FLOR
+   VIDEOS DIEGO
 ===================================================== */
 
-const partiturasFlor = {
-
-  "Tierra":
-    "piano copla ancestral pa la flor.pdf"
-
-};
-
-
-/* =====================================================
-   PARTICIPACIÓN
-===================================================== */
-
-const participacionPorMusico = {
-
-  emiliano: [
-
-    "Mejor conmigo",
-    "Grieta",
-    "Tierra",
-    "Luz",
-    "A pura ushuta"
-
-  ],
-
-  marcos: [
-
-    "Indiferencia plena",
-    "El simple valor",
-    "A pura ushuta"
-
-  ],
-
-  flor: [
-
-    "Pasajera",
-    "Mejor conmigo",
-    "Milagro",
-    "Dueña del tiempo",
-    "El simple valor",
-
-    /* NUEVO */
-    "Tierra",
-
-    "Ya sé (cierre)",
-    "A pura ushuta"
-
-  ],
-
-  hernan: [
-
-    "Mejor conmigo",
-    "El simple valor",
-    "Indiferencia plena",
-    "Tierra",
-    "A pura ushuta"
-
-  ],
-
-  diego: [
-
-    "Copla ancestral",
-    "Ya sé (cierre)",
-    "A pura ushuta"
-
-  ],
-
-  marculi:
-
-    canciones
-      .slice(2)
-      .map(
-        cancion =>
-          cancion.titulo
-      )
-
-};
-
-
-/* =====================================================
-   MOTOR DE AUDIO
-===================================================== */
-
-const AudioContextClass =
-  window.AudioContext ||
-  window.webkitAudioContext;
-
-let contextoAudio = null;
-
-function obtenerContexto() {
-
-  if (!contextoAudio) {
-
-    contextoAudio =
-      new AudioContextClass();
-
-  }
-
-  return contextoAudio;
-
-}
-
-
-/* =====================================================
-   ELEMENTOS
-===================================================== */
-
-const pantallaIngreso =
-  document.getElementById(
-    "pantallaIngreso"
-  );
-
-const formularioIngreso =
-  document.getElementById(
-    "formularioIngreso"
-  );
-
-const campoClave =
-  document.getElementById(
-    "campoClave"
-  );
-
-const mensajeError =
-  document.getElementById(
-    "mensajeError"
-  );
-
-const panelMusico =
-  document.getElementById(
-    "panelMusico"
-  );
-
-const contenedor =
-  document.getElementById(
-    "canciones"
-  );
-
-const nombreMusico =
-  document.getElementById(
-    "nombreMusico"
-  );
-
-const nombreInstrumento =
-  document.getElementById(
-    "nombreInstrumento"
-  );
-
-const iconoInstrumento =
-  document.getElementById(
-    "iconoInstrumento"
-  );
-
-const botonSalir =
-  document.getElementById(
-    "botonSalir"
-  );
-
-const mensajeAliento =
-  document.getElementById(
-    "mensajeAliento"
-  );
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
-
-formularioIngreso.addEventListener(
-  "submit",
-  evento => {
-
-    evento.preventDefault();
-
-    const claveIngresada =
-      campoClave.value.trim();
-
-    const idMusico =
-      Object.keys(musicos).find(
-
-        id =>
-          musicos[id].clave ===
-          claveIngresada
-
-      );
-
-    if (!idMusico) {
-
-      mensajeError.textContent =
-        "Clave incorrecta. Intentá nuevamente.";
-
-      campoClave.value = "";
-
-      campoClave.focus();
-
-      return;
-
-    }
-
-    mensajeError.textContent = "";
-
-    campoClave.value = "";
-
-    abrirPanel(idMusico);
-
-  }
-);
-
-
-/* =====================================================
-   ABRIR PANEL
-===================================================== */
-
-function abrirPanel(idMusico) {
-
-  const musico =
-    musicos[idMusico];
-
-  cambiarFondo(
-    musico.fondo
-  );
-
-  /* MENSAJE ESPECIAL FLOR */
-
-  if (idMusico === "flor") {
-
-    mensajeAliento.textContent =
-      "¡ES MÁGICOOOO! ✨🎹";
-
-  } else {
-
-    mensajeAliento.textContent =
-      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
-
-  }
-
-  detenerAudios();
-
-  contenedor.replaceChildren();
-
-  nombreMusico.textContent =
-    "PISTAS PARA " +
-    musico.nombre.toUpperCase();
-
-  nombreInstrumento.textContent =
-    musico.instrumento;
-
-  iconoInstrumento.textContent =
-    musico.icono;
-
-  pantallaIngreso
-    .classList
-    .add("oculto");
-
-  panelMusico
-    .classList
-    .remove("oculto");
-
-  canciones.forEach(
-    (cancion, indice) => {
-
-      crearCancion(
-        cancion,
-        indice,
-        idMusico,
-        musico
-      );
-
-    }
-  );
-
-  window.scrollTo(0,0);
-
-}
-
-
-/* =====================================================
-   DETENER AUDIOS Y VIDEOS
-===================================================== */
-
-function detenerAudios() {
-
-  const reproductores =
-    contenedor.querySelectorAll(
-      "audio"
-    );
-
-  reproductores.forEach(
-    reproductor => {
-
-      reproductor.pause();
-
-      reproductor.removeAttribute(
-        "src"
-      );
-
-      reproductor.load();
-
-    }
-  );
-
-  contenedor
-    .querySelectorAll("iframe")
-    .forEach(
-      iframe => {
-
-        iframe.removeAttribute(
-          "src"
-        );
-
-      }
-    );
-
-}
-
-
-/* =====================================================
-   SALIR
-===================================================== */
-
-botonSalir.addEventListener(
-  "click",
-  () => {
-
-    detenerAudios();
-
-    contenedor.replaceChildren();
-
-    panelMusico
-      .classList
-      .add("oculto");
-
-    pantallaIngreso
-      .classList
-      .remove("oculto");
-
-    cambiarFondo(
-      fondoPrincipal
-    );
-
-    mensajeAliento.textContent =
-      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
-
-    mensajeError.textContent = "";
-
-    campoClave.value = "";
-
-    campoClave.focus();
-
-    window.scrollTo(0,0);
-
-  }
-);
-
-
-/* =====================================================
-   AGREGAR VIDEO
-===================================================== */
-
-function agregarVideo(
-  seccion,
-  idVideo,
-  tituloCancion
-) {
-
-  const bloqueVideo =
-    document.createElement(
-      "div"
-    );
-
-  bloqueVideo.className =
-    "video-ensayo";
-
-  const tituloVideo =
-    document.createElement(
-      "h3"
-    );
-
-  tituloVideo.textContent =
-    "▶ Video de YouTube para ensayar";
-
-  const contenedorVideo =
-    document.createElement(
-      "div"
-    );
-
-  contenedorVideo.className =
-    "video-contenedor";
-
-  const video =
-    document.createElement(
-      "iframe"
-    );
-
-  video.src =
-    "https://www.youtube.com/embed/" +
-    idVideo;
-
-  video.title =
-    "Video de ensayo: " +
-    tituloCancion;
-
-  video.loading =
-    "lazy";
-
-  video.allow =
-    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-
-  video.allowFullscreen =
-    true;
-
-  contenedorVideo.appendChild(
-    video
-  );
-
-  bloqueVideo.append(
-    tituloVideo,
-    contenedorVideo
-  );
-
-  seccion.appendChild(
-    bloqueVideo
-  );
-
-}
-
-
-/* =====================================================
-   AGREGAR PARTITURA
-===================================================== */
-
-function agregarPartitura(
-  seccion,
-  archivoPDF
-) {
-
-  const bloque =
-    document.createElement(
-      "div"
-    );
-
-  bloque.className =
-    "partitura-ensayo";
-
-  const titulo =
-    document.createElement(
-      "h3"
-    );
-
-  titulo.textContent =
-    "📖 Partitura para Flor";
-
-  const visor =
-    document.createElement(
-      "div"
-    );
-
-  visor.className =
-    "partitura-contenedor";
-
-  const pdf =
-    document.createElement(
-      "iframe"
-    );
-
-  const rutaPDF =
-    encodeURIComponent(
-      archivoPDF
-    );
-
-  pdf.src =
-    rutaPDF +
-    "#view=FitH";
-
-  pdf.title =
-    "Partitura para Flor";
-
-  visor.appendChild(
-    pdf
-  );
-
-  const boton =
-    document.createElement(
-      "a"
-    );
-
-  boton.className =
-    "abrir-partitura";
-
-  boton.href =
-    rutaPDF;
-
-  boton.target =
-    "_blank";
-
-  boton.rel =
-    "noopener noreferrer";
-
-  boton.textContent =
-    "📖 Abrir partitura en pantalla completa";
-
-  bloque.append(
-    titulo,
-    visor,
-    boton
-  );
-
-  seccion.appendChild(
-    bloque
-  );
-
-}
-
-
-/* =====================================================
-   CREAR CANCIÓN
-===================================================== */
-
-function crearCancion(
-  cancion,
-  indice,
-  idMusico,
-  musico
-) {
-
-  const numero =
-    String(
-      indice + 1
-    ).padStart(
-      2,
-      "0"
-    );
-
-  const seccion =
-    document.createElement(
-      "section"
-    );
-
-  seccion.className =
-    "cancion";
-
-  const nombre =
-    document.createElement(
-      "h2"
-    );
-
-  nombre.textContent =
-    numero +
-    " - " +
-    cancion.titulo;
-
-  seccion.appendChild(
-    nombre
-  );
-
-
-  /* =================================================
-     PARTICIPACIÓN
-  ================================================= */
-
-  let participa =
-    false;
-
-  if (
-    idMusico === "german"
-  ) {
-
-    participa =
-      cancion.participaGerman;
-
-  } else {
-
-    participa =
-      participacionPorMusico[
-        idMusico
-      ].includes(
-        cancion.titulo
-      );
-
-  }
-
-
-  if (!participa) {
-
-    const aviso =
-      document.createElement(
-        "p"
-      );
-
-    aviso.className =
-      "estado";
-
-    aviso.textContent =
-      musico.nombre +
-      " no participa en este tema.";
-
-    seccion.appendChild(
-      aviso
-    );
-
-    contenedor.appendChild(
-      seccion
-    );
-
-    return;
-
-  }
-
-
-  /* =================================================
-     BUSCAR ARCHIVO DE AUDIO
-  ================================================= */
-
-  let archivo =
-    "";
-
-  if (
-    idMusico === "german"
-  ) {
-
-    archivo =
-      cancion.archivoGerman;
-
-  } else {
-
-    archivo =
-      archivosPorMusico[
-        idMusico
-      ][cancion.titulo] || "";
-
-  }
-
-
-  /* =================================================
-     SI HAY AUDIO
-  ================================================= */
-
-  if (archivo) {
-
-    const descripcion =
-      document.createElement(
-        "p"
-      );
-
-    descripcion.textContent =
-      "Pista completa de ensayo";
-
-    const reproductor =
-      document.createElement(
-        "audio"
-      );
-
-    reproductor.controls =
-      true;
-
-    reproductor.preload =
-      "metadata";
-
-
-    if (
-      archivo.startsWith(
-        "audios/"
-      )
-    ) {
-
-      reproductor.src =
-        archivo
-          .split("/")
-          .map(
-            parte =>
-              encodeURIComponent(
-                parte
-              )
-          )
-          .join("/");
-
-    } else {
-
-      reproductor.src =
-        musico.carpeta +
-        "/" +
-        encodeURIComponent(
-          archivo
-        );
-
-    }
-
-
-    const aviso =
-      document.createElement(
-        "p"
-      );
-
-    aviso.className =
-      "estado";
-
-    aviso.textContent =
-      "Pista de ensayo";
-
-
-    reproductor.addEventListener(
-      "canplay",
-      () => {
-
-        aviso.textContent =
-          "Audio disponible para escuchar.";
-
-      }
-    );
-
-
-    reproductor.addEventListener(
-      "error",
-      () => {
-
-        aviso.textContent =
-          "Audio no disponible. Verificá el archivo.";
-
-      }
-    );
-
-
-    seccion.append(
-      descripcion,
-      reproductor
-    );
-
-
-    if (
-      cancion.sinMetronomo
-    ) {
-
-      const cartel =
-        document.createElement(
-          "p"
-        );
-
-      cartel.className =
-        "sin-metronomo";
-
-      cartel.textContent =
-        "Estas van sin metrónomo";
-
-      seccion.appendChild(
-        cartel
-      );
-
-    } else {
-
-      crearMezclador(
-        reproductor,
-        seccion
-      );
-
-    }
-
-
-    seccion.appendChild(
-      aviso
-    );
-
-  }
-
-
-  /* =================================================
-     SI NO HAY AUDIO
-  ================================================= */
-
-  if (!archivo) {
-
-    const aviso =
-      document.createElement(
-        "p"
-      );
-
-    aviso.className =
-      "estado";
-
-
-    if (
-      idMusico === "flor" &&
-      cancion.titulo === "Tierra"
-    ) {
-
-      aviso.textContent =
-        "Ensayo con video y partitura.";
-
-    } else {
-
-      aviso.textContent =
-        "Audio pendiente de cargar.";
-
-    }
-
-
-    seccion.appendChild(
-      aviso
-    );
-
-  }
-
-
-  /* =================================================
-     VIDEOS DE HERNÁN
-  ================================================= */
-
-  if (
-    idMusico === "hernan" &&
-    videosHernan[
-      cancion.titulo
-    ]
-  ) {
-
-    agregarVideo(
-      seccion,
-      videosHernan[
-        cancion.titulo
-      ],
-      cancion.titulo
-    );
-
-  }
-
-
-  /* =================================================
-     VIDEOS DE FLOR
-  ================================================= */
-
-  if (
-    idMusico === "flor" &&
-    videosFlor[
-      cancion.titulo
-    ]
-  ) {
-
-    agregarVideo(
-      seccion,
-      videosFlor[
-        cancion.titulo
-      ],
-      cancion.titulo
-    );
-
-  }
-
-
-  /* =================================================
-     PARTITURA DE FLOR
-  ================================================= */
-
-  if (
-    idMusico === "flor" &&
-    partiturasFlor[
-      cancion.titulo
-    ]
-  ) {
-
-    agregarPartitura(
-      seccion,
-      partiturasFlor[
-        cancion.titulo
-      ]
-    );
-
-  }
-
-
-  contenedor.appendChild(
-    seccion
-  );
-
-}
-
-
-/* =====================================================
-   MEZCLADOR ESTÉREO
-===================================================== */
-
-function crearMezclador(
-  reproductor,
-  seccion
-) {
-
-  const contexto =
-    obtenerContexto();
-
-  const fuente =
-    contexto
-      .createMediaElementSource(
-        reproductor
-      );
-
-  const divisor =
-    contexto
-      .createChannelSplitter(
-        2
-      );
-
-  const gananciaL =
-    contexto.createGain();
-
-  const gananciaR =
-    contexto.createGain();
-
-  const mezclador =
-    contexto
-      .createChannelMerger(
-        2
-      );
-
-
-  gananciaL.gain.value =
-    2;
-
-  gananciaR.gain.value =
-    2;
-
-
-  fuente.connect(
-    divisor
-  );
-
-  divisor.connect(
-    gananciaL,
-    0
-  );
-
-  divisor.connect(
-    gananciaR,
-    1
-  );
-
-  gananciaL.connect(
-    mezclador,
-    0,
-    0
-  );
-
-  gananciaR.connect(
-    mezclador,
-    0,
-    1
-  );
-
-  mezclador.connect(
-    contexto.destination
-  );
-
-
-  reproductor.addEventListener(
-    "play",
-    async () => {
-
-      if (
-        contexto.state ===
-        "suspended"
-      ) {
-
-        try {
-
-          await contexto.resume();
-
-        } catch (error) {
-
-          console.error(
-            error
-          );
-
-        }
-
-      }
-
-    }
-  );
-
-
-  const panel =
-    document.createElement(
-      "div"
-    );
-
-  panel.className =
-    "mezclador";
-
-
-  function crearFader(
-    titulo,
-    etiqueta,
-    ganancia
-  ) {
-
-    const canal =
-      document.createElement(
-        "div"
-      );
-
-    canal.className =
-      "canal";
-
-
-    const encabezado =
-      document.createElement(
-        "h3"
-      );
-
-    encabezado.textContent =
-      titulo;
-
-
-    const deslizador =
-      document.createElement(
-        "input"
-      );
-
-    deslizador.type =
-      "range";
-
-    deslizador.className =
-      "fader";
-
-    deslizador.min =
-      "0";
-
-    deslizador.max =
-      "100";
-
-    deslizador.value =
-      "100";
-
-
-    deslizador.setAttribute(
-      "aria-label",
-      "Volumen canal " +
-      etiqueta
-    );
-
-
-    const valor =
-      document.createElement(
-        "div"
-      );
-
-    valor.className =
-      "valor";
-
-    valor.textContent =
-      "100%";
-
-
-    const texto =
-      document.createElement(
-        "div"
-      );
-
-    texto.className =
-      "etiqueta";
-
-    texto.textContent =
-      etiqueta;
-
-
-    deslizador.addEventListener(
-      "input",
-      () => {
-
-        const volumen =
-          Number(
-            deslizador.value
-          ) / 100 * 2;
-
-        ganancia.gain.value =
-          volumen;
-
-        valor.textContent =
-          deslizador.value +
-          "%";
-
-      }
-    );
-
-
-    canal.append(
-      encabezado,
-      deslizador,
-      valor,
-      texto
-    );
-
-
-    return canal;
-
-  }
-
-
-  const faderL =
-    crearFader(
-      "CANAL L",
-      "IZQUIERDO",
-      gananciaL
-    );
-
-
-  const faderR =
-    crearFader(
-      "CANAL R",
-      "DERECHO",
-      gananciaR
-    );
-
-
-  panel.append(
-    faderL,
-    faderR
-  );
-
-
-  seccion.appendChild(
-    panel
-  );
-
-}
-
-</script>
-
-</body>
-</html>
+const videosDie
