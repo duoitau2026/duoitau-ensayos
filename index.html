@@ -719,4 +719,864 @@ const videosFlor = {
    VIDEOS DIEGO
 ===================================================== */
 
-const videosDie
+const videosDiego = {
+
+  "Dueña del tiempo":
+    "R1V4AvFwA8w",
+
+  "Milagro":
+    "C5wBGG_X-M0"
+
+};
+
+/* =====================================================
+   PARTITURAS
+===================================================== */
+
+const partiturasFlor = {
+
+  "Tierra":
+    "piano copla ancestral pa la flor.pdf"
+
+};
+
+const partiturasDiego = {
+
+  "Copla ancestral":
+    "guitarra ancestral - .pdf"
+
+};
+
+/* =====================================================
+   PARTICIPACIÓN
+===================================================== */
+
+const participacionPorMusico = {
+
+  emiliano: [
+    "Mejor conmigo",
+    "Grieta",
+    "Tierra",
+    "Luz",
+    "A pura ushuta"
+  ],
+
+  marcos: [
+    "Indiferencia plena",
+    "El simple valor",
+    "A pura ushuta"
+  ],
+
+  flor: [
+    "Pasajera",
+    "Mejor conmigo",
+    "Milagro",
+    "Dueña del tiempo",
+    "El simple valor",
+    "Tierra",
+    "Ya sé (cierre)",
+    "A pura ushuta"
+  ],
+
+  hernan: [
+    "Mejor conmigo",
+    "El simple valor",
+    "Indiferencia plena",
+    "Tierra",
+    "A pura ushuta"
+  ],
+
+  diego: [
+    "Copla ancestral",
+    "Milagro",
+    "Dueña del tiempo",
+    "Ya sé (cierre)",
+    "A pura ushuta"
+  ],
+
+  marculi:
+    canciones
+      .slice(2)
+      .map(cancion => cancion.titulo)
+
+};
+
+/* =====================================================
+   MOTOR DE AUDIO
+===================================================== */
+
+const AudioContextClass =
+  window.AudioContext ||
+  window.webkitAudioContext;
+
+let contextoAudio = null;
+
+function obtenerContexto() {
+
+  if (!contextoAudio) {
+    contextoAudio = new AudioContextClass();
+  }
+
+  return contextoAudio;
+
+}
+
+/* =====================================================
+   ELEMENTOS
+===================================================== */
+
+const pantallaIngreso =
+  document.getElementById("pantallaIngreso");
+
+const formularioIngreso =
+  document.getElementById("formularioIngreso");
+
+const campoClave =
+  document.getElementById("campoClave");
+
+const mensajeError =
+  document.getElementById("mensajeError");
+
+const panelMusico =
+  document.getElementById("panelMusico");
+
+const contenedor =
+  document.getElementById("canciones");
+
+const nombreMusico =
+  document.getElementById("nombreMusico");
+
+const nombreInstrumento =
+  document.getElementById("nombreInstrumento");
+
+const iconoInstrumento =
+  document.getElementById("iconoInstrumento");
+
+const botonSalir =
+  document.getElementById("botonSalir");
+
+const mensajeAliento =
+  document.getElementById("mensajeAliento");
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+formularioIngreso.addEventListener(
+  "submit",
+  evento => {
+
+    evento.preventDefault();
+
+    const claveIngresada =
+      campoClave.value.trim();
+
+    const idMusico =
+      Object.keys(musicos).find(
+        id =>
+          musicos[id].clave === claveIngresada
+      );
+
+    if (!idMusico) {
+
+      mensajeError.textContent =
+        "Clave incorrecta. Intentá nuevamente.";
+
+      campoClave.value = "";
+      campoClave.focus();
+
+      return;
+
+    }
+
+    mensajeError.textContent = "";
+    campoClave.value = "";
+
+    abrirPanel(idMusico);
+
+  }
+);
+
+/* =====================================================
+   ABRIR PANEL
+===================================================== */
+
+function abrirPanel(idMusico) {
+
+  const musico =
+    musicos[idMusico];
+
+  cambiarFondo(musico.fondo);
+
+  if (idMusico === "flor") {
+
+    mensajeAliento.textContent =
+      "¡ES MÁGICOOOO! ✨🎹";
+
+  } else {
+
+    mensajeAliento.textContent =
+      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
+
+  }
+
+  detenerAudios();
+
+  contenedor.replaceChildren();
+
+  nombreMusico.textContent =
+    "PISTAS PARA " +
+    musico.nombre.toUpperCase();
+
+  nombreInstrumento.textContent =
+    musico.instrumento;
+
+  iconoInstrumento.textContent =
+    musico.icono;
+
+  pantallaIngreso
+    .classList
+    .add("oculto");
+
+  panelMusico
+    .classList
+    .remove("oculto");
+
+  canciones.forEach(
+    (cancion, indice) => {
+
+      crearCancion(
+        cancion,
+        indice,
+        idMusico,
+        musico
+      );
+
+    }
+  );
+
+  window.scrollTo(0, 0);
+
+}
+
+/* =====================================================
+   DETENER AUDIOS Y VIDEOS
+===================================================== */
+
+function detenerAudios() {
+
+  const reproductores =
+    contenedor.querySelectorAll("audio");
+
+  reproductores.forEach(
+    reproductor => {
+
+      reproductor.pause();
+      reproductor.removeAttribute("src");
+      reproductor.load();
+
+    }
+  );
+
+  contenedor
+    .querySelectorAll("iframe")
+    .forEach(iframe => {
+
+      iframe.removeAttribute("src");
+
+    });
+
+}
+
+/* =====================================================
+   SALIR
+===================================================== */
+
+botonSalir.addEventListener(
+  "click",
+  () => {
+
+    detenerAudios();
+
+    contenedor.replaceChildren();
+
+    panelMusico
+      .classList
+      .add("oculto");
+
+    pantallaIngreso
+      .classList
+      .remove("oculto");
+
+    cambiarFondo(fondoPrincipal);
+
+    mensajeAliento.textContent =
+      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
+
+    mensajeError.textContent = "";
+    campoClave.value = "";
+    campoClave.focus();
+
+    window.scrollTo(0, 0);
+
+  }
+);
+
+/* =====================================================
+   AGREGAR VIDEO
+===================================================== */
+
+function agregarVideo(
+  seccion,
+  idVideo,
+  titulo
+) {
+
+  const bloque =
+    document.createElement("div");
+
+  bloque.className =
+    "video-ensayo";
+
+  const encabezado =
+    document.createElement("h3");
+
+  encabezado.textContent =
+    "▶ Video de YouTube para ensayar";
+
+  const caja =
+    document.createElement("div");
+
+  caja.className =
+    "video-contenedor";
+
+  const iframe =
+    document.createElement("iframe");
+
+  iframe.src =
+    "https://www.youtube.com/embed/" +
+    idVideo;
+
+  iframe.title =
+    "Video de ensayo: " + titulo;
+
+  iframe.loading =
+    "lazy";
+
+  iframe.allow =
+    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+
+  iframe.allowFullscreen =
+    true;
+
+  caja.appendChild(iframe);
+
+  bloque.append(
+    encabezado,
+    caja
+  );
+
+  seccion.appendChild(bloque);
+
+}
+
+/* =====================================================
+   AGREGAR PARTITURA
+===================================================== */
+
+function agregarPartitura(
+  seccion,
+  archivo,
+  nombreMusico
+) {
+
+  const bloque =
+    document.createElement("div");
+
+  bloque.className =
+    "partitura-ensayo";
+
+  const encabezado =
+    document.createElement("h3");
+
+  encabezado.textContent =
+    "📖 Partitura para " + nombreMusico;
+
+  const ruta =
+    archivo
+      .split("/")
+      .map(encodeURIComponent)
+      .join("/");
+
+  const visor =
+    document.createElement("iframe");
+
+  visor.src =
+    ruta + "#view=FitH";
+
+  visor.title =
+    "Partitura para " + nombreMusico;
+
+  visor.loading =
+    "lazy";
+
+  const enlace =
+    document.createElement("a");
+
+  enlace.href =
+    ruta;
+
+  enlace.target =
+    "_blank";
+
+  enlace.rel =
+    "noopener noreferrer";
+
+  enlace.textContent =
+    "📖 Abrir partitura en pantalla completa";
+
+  bloque.append(
+    encabezado,
+    visor,
+    enlace
+  );
+
+  seccion.appendChild(bloque);
+
+}
+
+/* =====================================================
+   CREAR CANCIÓN
+===================================================== */
+
+function crearCancion(
+  cancion,
+  indice,
+  idMusico,
+  musico
+) {
+
+  const numero =
+    String(indice + 1).padStart(2, "0");
+
+  const seccion =
+    document.createElement("section");
+
+  seccion.className =
+    "cancion";
+
+  const nombre =
+    document.createElement("h2");
+
+  nombre.textContent =
+    numero + " - " + cancion.titulo;
+
+  seccion.appendChild(nombre);
+
+  /* PARTICIPACIÓN */
+
+  const participa =
+    idMusico === "german"
+      ? cancion.participaGerman
+      : participacionPorMusico[idMusico]
+          .includes(cancion.titulo);
+
+  if (!participa) {
+
+    const aviso =
+      document.createElement("p");
+
+    aviso.className =
+      "estado";
+
+    aviso.textContent =
+      musico.nombre +
+      " no participa en este tema.";
+
+    seccion.appendChild(aviso);
+
+    contenedor.appendChild(seccion);
+
+    return;
+
+  }
+
+  /* ARCHIVO DE AUDIO */
+
+  const archivo =
+    idMusico === "german"
+      ? cancion.archivoGerman
+      : (
+          archivosPorMusico[idMusico][cancion.titulo]
+          || ""
+        );
+
+  /* REPRODUCTOR */
+
+  if (archivo) {
+
+    const descripcion =
+      document.createElement("p");
+
+    descripcion.textContent =
+      "Pista completa de ensayo";
+
+    const reproductor =
+      document.createElement("audio");
+
+    reproductor.controls =
+      true;
+
+    reproductor.preload =
+      "metadata";
+
+    const ruta =
+      archivo.startsWith("audios/")
+        ? archivo
+        : musico.carpeta + "/" + archivo;
+
+    reproductor.src =
+      ruta
+        .split("/")
+        .map(encodeURIComponent)
+        .join("/");
+
+    const aviso =
+      document.createElement("p");
+
+    aviso.className =
+      "estado";
+
+    aviso.textContent =
+      "Pista de ensayo";
+
+    reproductor.addEventListener(
+      "canplay",
+      () => {
+
+        aviso.textContent =
+          "Audio disponible para escuchar.";
+
+      }
+    );
+
+    reproductor.addEventListener(
+      "error",
+      () => {
+
+        aviso.textContent =
+          "Audio no disponible. Verificá el archivo.";
+
+      }
+    );
+
+    seccion.append(
+      descripcion,
+      reproductor
+    );
+
+    /* TEMAS SIN METRÓNOMO */
+
+    if (cancion.sinMetronomo) {
+
+      const cartel =
+        document.createElement("p");
+
+      cartel.className =
+        "sin-metronomo";
+
+      cartel.textContent =
+        "Estas van sin metrónomo";
+
+      seccion.appendChild(cartel);
+
+    } else {
+
+      crearMezclador(
+        reproductor,
+        seccion
+      );
+
+    }
+
+    seccion.appendChild(aviso);
+
+  } else {
+
+    /* SIN AUDIO, PERO PUEDE TENER VIDEO */
+
+    const aviso =
+      document.createElement("p");
+
+    aviso.className =
+      "estado";
+
+    const hayVideo =
+      (
+        idMusico === "hernan" &&
+        videosHernan[cancion.titulo]
+      ) ||
+      (
+        idMusico === "flor" &&
+        videosFlor[cancion.titulo]
+      ) ||
+      (
+        idMusico === "diego" &&
+        videosDiego[cancion.titulo]
+      );
+
+    aviso.textContent =
+      hayVideo
+        ? "Ensayo con video."
+        : "Audio pendiente de cargar.";
+
+    seccion.appendChild(aviso);
+
+  }
+
+  /* VIDEOS DEL MÚSICO */
+
+  const videos =
+    idMusico === "hernan"
+      ? videosHernan
+      : idMusico === "flor"
+        ? videosFlor
+        : idMusico === "diego"
+          ? videosDiego
+          : {};
+
+  if (videos[cancion.titulo]) {
+
+    agregarVideo(
+      seccion,
+      videos[cancion.titulo],
+      cancion.titulo
+    );
+
+  }
+
+  /* PARTITURAS DEL MÚSICO */
+
+  const partituras =
+    idMusico === "flor"
+      ? partiturasFlor
+      : idMusico === "diego"
+        ? partiturasDiego
+        : {};
+
+  if (partituras[cancion.titulo]) {
+
+    agregarPartitura(
+      seccion,
+      partituras[cancion.titulo],
+      musico.nombre
+    );
+
+  }
+
+  contenedor.appendChild(seccion);
+
+}
+
+/* =====================================================
+   MEZCLADOR ESTÉREO
+===================================================== */
+
+function crearMezclador(
+  reproductor,
+  seccion
+) {
+
+  const contexto =
+    obtenerContexto();
+
+  const fuente =
+    contexto.createMediaElementSource(
+      reproductor
+    );
+
+  const divisor =
+    contexto.createChannelSplitter(2);
+
+  const gananciaL =
+    contexto.createGain();
+
+  const gananciaR =
+    contexto.createGain();
+
+  const mezclador =
+    contexto.createChannelMerger(2);
+
+  gananciaL.gain.value = 2;
+  gananciaR.gain.value = 2;
+
+  fuente.connect(divisor);
+
+  divisor.connect(
+    gananciaL,
+    0
+  );
+
+  divisor.connect(
+    gananciaR,
+    1
+  );
+
+  gananciaL.connect(
+    mezclador,
+    0,
+    0
+  );
+
+  gananciaR.connect(
+    mezclador,
+    0,
+    1
+  );
+
+  mezclador.connect(
+    contexto.destination
+  );
+
+  reproductor.addEventListener(
+    "play",
+    async () => {
+
+      if (
+        contexto.state === "suspended"
+      ) {
+
+        try {
+
+          await contexto.resume();
+
+        } catch (error) {
+
+          console.error(error);
+
+        }
+
+      }
+
+    }
+  );
+
+  const panel =
+    document.createElement("div");
+
+  panel.className =
+    "mezclador";
+
+  function crearFader(
+    titulo,
+    etiqueta,
+    ganancia
+  ) {
+
+    const canal =
+      document.createElement("div");
+
+    canal.className =
+      "canal";
+
+    const encabezado =
+      document.createElement("h3");
+
+    encabezado.textContent =
+      titulo;
+
+    const deslizador =
+      document.createElement("input");
+
+    deslizador.type =
+      "range";
+
+    deslizador.className =
+      "fader";
+
+    deslizador.min =
+      "0";
+
+    deslizador.max =
+      "100";
+
+    deslizador.value =
+      "100";
+
+    deslizador.setAttribute(
+      "aria-label",
+      "Volumen canal " + etiqueta
+    );
+
+    const valor =
+      document.createElement("div");
+
+    valor.className =
+      "valor";
+
+    valor.textContent =
+      "100%";
+
+    const texto =
+      document.createElement("div");
+
+    texto.className =
+      "etiqueta";
+
+    texto.textContent =
+      etiqueta;
+
+    deslizador.addEventListener(
+      "input",
+      () => {
+
+        const volumen =
+          Number(deslizador.value) / 100 * 2;
+
+        ganancia.gain.value =
+          volumen;
+
+        valor.textContent =
+          deslizador.value + "%";
+
+      }
+    );
+
+    canal.append(
+      encabezado,
+      deslizador,
+      valor,
+      texto
+    );
+
+    return canal;
+
+  }
+
+  const faderL =
+    crearFader(
+      "CANAL L",
+      "IZQUIERDO",
+      gananciaL
+    );
+
+  const faderR =
+    crearFader(
+      "CANAL R",
+      "DERECHO",
+      gananciaR
+    );
+
+  panel.append(
+    faderL,
+    faderR
+  );
+
+  seccion.appendChild(panel);
+
+}
+
+</script>
+
+</body>
+</html>
