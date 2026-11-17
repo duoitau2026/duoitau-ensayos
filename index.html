@@ -1,20 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dúo Itaú - Sala de ensayos</title>
+<title>Dúo Itaú - Sala de Ensayos</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   background-color: #111827;
   background-image:
-    linear-gradient(rgba(17,24,39,.65), rgba(17,24,39,.65)),
+    linear-gradient(rgba(17,24,39,.65),rgba(17,24,39,.65)),
     url("https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg");
   background-position: center top;
   background-size: auto 450px;
@@ -30,21 +29,15 @@ header {
   background: rgba(31,41,55,.85);
 }
 
-h1 {
-  color: #facc15;
-  margin-bottom: 5px;
-}
-
-header p {
-  color: #d1d5db;
-}
+h1 { color: #facc15; margin-bottom: 5px; }
+header p { color: #d1d5db; }
 
 .aliento {
   display: inline-block;
   margin: 15px auto 0;
   padding: 12px 24px;
   background: #facc15;
-  color: #111827;
+  color: #111827 !important;
   border: 3px solid white;
   border-radius: 14px;
   font-size: clamp(20px,5vw,34px);
@@ -54,21 +47,13 @@ header p {
   transform: rotate(-2deg);
 }
 
-header p.aliento {
-  color: #111827;
-}
-
 main {
   max-width: 850px;
   margin: auto;
   padding: 20px;
 }
 
-.oculto {
-  display: none !important;
-}
-
-/* INGRESO */
+.oculto { display: none !important; }
 
 .ingreso {
   max-width: 440px;
@@ -80,9 +65,7 @@ main {
   border-radius: 16px;
 }
 
-.ingreso h2 {
-  color: #facc15;
-}
+.ingreso h2 { color: #facc15; }
 
 .ingreso input {
   width: 100%;
@@ -105,16 +88,8 @@ button {
   cursor: pointer;
 }
 
-button:hover {
-  background: #fde047;
-}
-
-.error {
-  color: #fca5a5;
-  font-weight: bold;
-}
-
-/* PANEL */
+button:hover { background: #fde047; }
+.error { color: #fca5a5; font-weight: bold; }
 
 .panel-encabezado {
   text-align: center;
@@ -124,15 +99,8 @@ button:hover {
   border-radius: 14px;
 }
 
-.instrumento {
-  font-size: 54px;
-  margin: 8px 0;
-}
-
-.panel-encabezado h2 {
-  color: #facc15;
-  margin: 8px 0;
-}
+.instrumento { font-size: 54px; margin: 8px 0; }
+.panel-encabezado h2 { color: #facc15; margin: 8px 0; }
 
 .salir {
   margin-top: 12px;
@@ -141,8 +109,6 @@ button:hover {
   border: 1px solid #6b7280;
 }
 
-/* CANCIONES */
-
 .cancion {
   background: rgba(31,41,55,.88);
   border-radius: 12px;
@@ -150,20 +116,9 @@ button:hover {
   margin-bottom: 15px;
 }
 
-.cancion h2 {
-  color: #facc15;
-  font-size: 20px;
-}
-
-audio {
-  width: 100%;
-  margin-top: 10px;
-}
-
-.estado {
-  color: #d1d5db;
-  font-size: 14px;
-}
+.cancion h2 { color: #facc15; font-size: 20px; }
+audio { width: 100%; margin-top: 10px; }
+.estado { color: #d1d5db; font-size: 14px; }
 
 .sin-metronomo {
   display: inline-block;
@@ -176,18 +131,16 @@ audio {
   font-size: 15px;
 }
 
-/* VIDEOS */
-
-.video-ensayo {
+.video-ensayo, .partitura-ensayo {
   margin-top: 22px;
   padding-top: 15px;
   border-top: 1px solid #4b5563;
 }
 
-.video-ensayo h3 {
+.video-ensayo h3,
+.partitura-ensayo h3 {
   color: #facc15;
-  font-size: 17px;
-  margin: 0 0 12px;
+  font-size: 18px;
 }
 
 .video-contenedor {
@@ -203,19 +156,6 @@ audio {
   width: 100%;
   height: 100%;
   border: 0;
-}
-
-/* PARTITURAS */
-
-.partitura-ensayo {
-  margin-top: 22px;
-  padding-top: 15px;
-  border-top: 1px solid #4b5563;
-}
-
-.partitura-ensayo h3 {
-  color: #facc15;
-  font-size: 18px;
 }
 
 .partitura-ensayo iframe {
@@ -237,8 +177,6 @@ audio {
   text-decoration: none;
   font-weight: bold;
 }
-
-/* FADERS */
 
 .mezclador {
   display: flex;
@@ -279,10 +217,7 @@ audio {
   font-weight: bold;
 }
 
-.etiqueta {
-  color: #9ca3af;
-  font-size: 12px;
-}
+.etiqueta { color: #9ca3af; font-size: 12px; }
 
 footer {
   text-align: center;
@@ -291,18 +226,10 @@ footer {
   background: rgba(17,24,39,.7);
 }
 
-@media (max-width: 600px) {
-  main {
-    padding: 12px;
-  }
-
-  .cancion {
-    padding: 15px;
-  }
-
-  .partitura-ensayo iframe {
-    height: 520px;
-  }
+@media (max-width:600px) {
+  main { padding: 12px; }
+  .cancion { padding: 15px; }
+  .partitura-ensayo iframe { height: 520px; }
 }
 </style>
 </head>
@@ -312,8 +239,7 @@ footer {
 <header>
   <h1>DÚO ITAÚ</h1>
   <h2>SALA DE ENSAYOS</h2>
-  <p>Presentación del disco LUNA NUEVA</p>
-
+  <p>Espacio de trabajo musical</p>
   <p id="mensajeAliento" class="aliento">
     ¡VAMOOOO PAPIRRIIII! 🎸🔥
   </p>
@@ -321,86 +247,69 @@ footer {
 
 <main>
 
-  <section id="pantallaIngreso" class="ingreso">
+<section id="pantallaIngreso" class="ingreso">
+  <h2>🎵 INGRESO DE MÚSICOS</h2>
+  <p>Escribí tu clave para entrar a tu panel de ensayo.</p>
 
-    <h2>🎵 INGRESO DE MÚSICOS</h2>
+  <form id="formularioIngreso">
+    <input
+      id="campoClave"
+      type="password"
+      placeholder="Tu clave"
+      autocomplete="off"
+      required
+    >
+    <button type="submit">ENTRAR</button>
+  </form>
 
-    <p>
-      Escribí tu clave para entrar a tu panel de ensayo.
-    </p>
+  <p id="mensajeError" class="error"></p>
+</section>
 
-    <form id="formularioIngreso">
-
-      <input
-        id="campoClave"
-        type="password"
-        placeholder="Tu clave"
-        autocomplete="off"
-        required
-      >
-
-      <button type="submit">
-        ENTRAR
-      </button>
-
-    </form>
-
-    <p id="mensajeError" class="error"></p>
-
+<div id="panelMusico" class="oculto">
+  <section class="panel-encabezado">
+    <div id="iconoInstrumento" class="instrumento"></div>
+    <h2 id="nombreMusico"></h2>
+    <p id="nombreInstrumento"></p>
+    <button id="botonSalir" class="salir">
+      Salir de mi panel
+    </button>
   </section>
 
-  <div id="panelMusico" class="oculto">
-
-    <section class="panel-encabezado">
-
-      <div
-        id="iconoInstrumento"
-        class="instrumento">
-      </div>
-
-      <h2 id="nombreMusico"></h2>
-
-      <p id="nombreInstrumento"></p>
-
-      <button id="botonSalir" class="salir">
-        Salir de mi panel
-      </button>
-
-    </section>
-
-    <div id="canciones"></div>
-
-  </div>
+  <div id="canciones"></div>
+</div>
 
 </main>
 
 <footer>
-  Dúo Itaú - Luna Nueva 2026
+  Dúo Itaú · Sala de Ensayos
 </footer>
 
 <script>
 
-/* =====================================================
-   FONDO PRINCIPAL
-===================================================== */
+/* FONDO PRINCIPAL */
 
 const fondoPrincipal =
   "https://s.mxmcdn.net/images-storage/albums5/7/6/7/9/9/7/110799767_500_500.jpg";
 
-/* =====================================================
-   MÚSICOS
-===================================================== */
+/* MÚSICOS */
 
 const musicos = {
-
   german: {
     nombre: "Germán",
     clave: "claudiogeno",
     instrumento: "Panel de pistas",
     icono: "🎸",
     carpeta: "audios",
-    fondo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYwxS4RUsnIqx_PcJyI7HqAN0ENuC78XbxJBA6e97eJA&s"
+    fondo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYwxS4RUsnIqx_PcJyI7HqAN0ENuC78XbxJBA6e97eJA&s"
+  },
+
+  thiago: {
+    nombre: "Thiago Caballero",
+    clave: "drum",
+    instrumento: "Batería",
+    icono: "🥁",
+    carpeta: "audios",
+    fondo: "thiago.jpg"
   },
 
   emiliano: {
@@ -418,8 +327,7 @@ const musicos = {
     instrumento: "Bandoneón",
     icono: "🪗",
     carpeta: "audios/pa bandoneon",
-    fondo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW1NHI9FGz6Cek_zZgzZ2F27xve1UcWZe_KEWOgr5TXA&s"
+    fondo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW1NHI9FGz6Cek_zZgzZ2F27xve1UcWZe_KEWOgr5TXA&s"
   },
 
   flor: {
@@ -437,8 +345,7 @@ const musicos = {
     instrumento: "Guitarra",
     icono: "🎸",
     carpeta: "audios/pa hernan",
-    fondo:
-      "https://scontent.fros2-2.fna.fbcdn.net/v/t39.30808-6/506628262_10235494435397587_3104701208956728019_n.jpg?stp=dst-jpg_tt6&cstp=mx1080x1080&ctp=s1080x1080&_nc_cat=110&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHviiGrxVqnR9MnMGnU75Il98x4yeK_BQ33zHjJ4r8FDZmmvsLq-_cj4FvuelrKXq-5q3BkYdki1kaJcgT2jMAH&_nc_ohc=ewev1Xi_SCUQ7kNvwEGSG_Y&_nc_oc=Ado0jThQihdT2PuWOmyrsFa3HAOl0rQatbDsHk3_M_xPn5P2vozMAUBE_0EL0oaMZno&_nc_zt=23&_nc_ht=scontent.fros2-2.fna&_nc_gid=8fsoL2zpsNoe41nk09QjHA&_nc_ss=7b2a8&oh=00_AQLajcAZ8uXkhPFCSbgOWuqzuN4JeVXbJIqQ6wWq6R5cMA&oe=6ABB5463"
+    fondo: "https://scontent.fros2-2.fna.fbcdn.net/v/t39.30808-6/506628262_10235494435397587_3104701208956728019_n.jpg?stp=dst-jpg_tt6&cstp=mx1080x1080&ctp=s1080x1080&_nc_cat=110&ccb=1-7&_nc_sid=cc71e4&_nc_eui2=AeHviiGrxVqnR9MnMGnU75Il98x4yeK_BQ33zHjJ4r8FDZmmvsLq-_cj4FvuelrKXq-5q3BkYdki1kaJcgT2jMAH&_nc_ohc=ewev1Xi_SCUQ7kNvwEGSG_Y&_nc_oc=Ado0jThQihdT2PuWOmyrsFa3HAOl0rQatbDsHk3_M_xPn5P2vozMAUBE_0EL0oaMZno&_nc_zt=23&_nc_ht=scontent.fros2-2.fna&_nc_gid=8fsoL2zpsNoe41nk09QjHA&_nc_ss=7b2a8&oh=00_AQLajcAZ8uXkhPFCSbgOWuqzuN4JeVXbJIqQ6wWq6R5cMA&oe=6ABB5463"
   },
 
   marculi: {
@@ -458,301 +365,197 @@ const musicos = {
     carpeta: "audios/pa diego",
     fondo: "diego.jpg"
   }
-
 };
 
-/* =====================================================
-   CAMBIAR FONDO
-===================================================== */
+/* CAMBIAR FONDO */
 
 function cambiarFondo(imagen) {
-
   document.body.style.backgroundImage =
     'linear-gradient(rgba(17,24,39,.65),rgba(17,24,39,.65)),url("' +
-    imagen +
-    '")';
-
+    imagen + '")';
 }
 
-/* =====================================================
-   CANCIONES
-===================================================== */
+/* CANCIONES */
 
 const canciones = [
-
   {
     titulo: "Mariel (solista)",
     archivoGerman: "",
     participaGerman: false
   },
-
   {
     titulo: "Claudio (solista)",
     archivoGerman: "",
     participaGerman: false
   },
-
   {
     titulo: "El cosechero",
     archivoGerman: "",
     participaGerman: false
   },
-
   {
     titulo: "Salamanqueando pa' mí",
     archivoGerman: "",
     participaGerman: false
   },
-
   {
     titulo: "Luna Nueva",
     archivoGerman: "01 LUNA NUEVA pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Grieta",
     archivoGerman: "04 GRIETA CLOCK pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Mejor conmigo",
     archivoGerman: "mejor conmigo pista clock pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "El simple valor",
     archivoGerman: "el simple valor pista clock pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Indiferencia plena",
     archivoGerman: "indiferencia plena pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Pasajera",
     archivoGerman: "06 PASAJERA pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Tierra",
     archivoGerman: "tierra pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Copla ancestral",
     archivoGerman: "copla ancestral pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Milagro",
     archivoGerman: "milagro pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Dueña del tiempo",
     archivoGerman: "10 dueña del tiempo pa german.mp3",
     participaGerman: true
   },
-
   {
     titulo: "Luz",
     archivoGerman: "luz.mp3",
     participaGerman: true,
     sinMetronomo: true
   },
-
   {
     titulo: "Ya sé (cierre)",
     archivoGerman: "YA SE.mp3",
     participaGerman: true,
     sinMetronomo: true
   },
-
   {
     titulo: "A pura ushuta",
-    archivoGerman:
-      "Dúo Itaú - A pura Ushuta (chacarera).mp3",
+    archivoGerman: "Dúo Itaú - A pura Ushuta (chacarera).mp3",
     participaGerman: true,
     sinMetronomo: true
   }
-
 ];
 
-/* =====================================================
-   ARCHIVOS POR MÚSICO
-===================================================== */
+/* ARCHIVOS POR MÚSICO */
 
 const archivosPorMusico = {
-
   emiliano: {
-
-    "Mejor conmigo":
-      "mejor conmigo pa emi.mp3",
-
-    "Grieta":
-      "04 GRIETA emi.mp3",
-
-    "Tierra":
-      "tierra pa emi.mp3",
-
-    "Luz":
-      "luz.mp3",
-
+    "Mejor conmigo": "mejor conmigo pa emi.mp3",
+    "Grieta": "04 GRIETA emi.mp3",
+    "Tierra": "tierra pa emi.mp3",
+    "Luz": "luz.mp3",
     "A pura ushuta":
       "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
-
   },
 
   marcos: {
-
     "Indiferencia plena":
       "indiferencia plena pa marcos.mp3",
-
     "El simple valor":
       "el simple valor pa bandoneon.mp3",
-
     "A pura ushuta":
       "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
-
   },
 
   flor: {
-
-    "Pasajera":
-      "06 PASAJERA pa flor.mp3",
-
+    "Pasajera": "06 PASAJERA pa flor.mp3",
     "Dueña del tiempo":
       "10 dueña del tiempo pa flor.mp3",
-
     "El simple valor":
       "el simple valor pa flor.mp3",
-
     "Mejor conmigo":
       "mejor conmigo pa flor.mp3",
-
-    "Milagro":
-      "milagro pa flor.mp3",
-
-    "Ya sé (cierre)":
-      "audios/YA SE.mp3",
-
+    "Milagro": "milagro pa flor.mp3",
+    "Ya sé (cierre)": "audios/YA SE.mp3",
     "A pura ushuta":
       "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
-
   },
 
   hernan: {
-
     "El simple valor":
       "el simple valor pa hernan.mp3",
-
     "Indiferencia plena":
       "indiferencia plena pa hernan.mp3",
-
     "Mejor conmigo":
       "mejor conmigo pa hernan.mp3",
-
-    "Tierra":
-      "tierra pa hernan.mp3",
-
+    "Tierra": "tierra pa hernan.mp3",
     "A pura ushuta":
       "audios/Dúo Itaú - A pura Ushuta (chacarera).mp3"
-
   },
 
   marculi: {},
 
   diego: {
-
     "Copla ancestral":
       "copla ancestral pa diego.mp3",
-
     "Ya sé (cierre)":
       "ya se pistas (1).mp3"
-
   }
-
 };
 
-/* =====================================================
-   VIDEOS HERNÁN
-===================================================== */
+/* VIDEOS */
 
 const videosHernan = {
-
-  "El simple valor":
-    "Um6md_Qj_ts",
-
-  "Mejor conmigo":
-    "2opJcHl0KVk",
-
-  "Tierra":
-    "lHN6w2dNdRM",
-
-  "Indiferencia plena":
-    "MxVtpLC_Rss"
-
+  "El simple valor": "Um6md_Qj_ts",
+  "Mejor conmigo": "2opJcHl0KVk",
+  "Tierra": "lHN6w2dNdRM",
+  "Indiferencia plena": "MxVtpLC_Rss"
 };
-
-/* =====================================================
-   VIDEOS FLOR
-===================================================== */
 
 const videosFlor = {
-
-  "Tierra":
-    "lHN6w2dNdRM"
-
+  "Tierra": "lHN6w2dNdRM"
 };
-
-/* =====================================================
-   VIDEOS DIEGO
-===================================================== */
 
 const videosDiego = {
-
-  "Dueña del tiempo":
-    "R1V4AvFwA8w",
-
-  "Milagro":
-    "C5wBGG_X-M0"
-
+  "Dueña del tiempo": "R1V4AvFwA8w",
+  "Milagro": "C5wBGG_X-M0"
 };
 
-/* =====================================================
-   PARTITURAS
-===================================================== */
+/* PARTITURAS */
 
 const partiturasFlor = {
-
-  "Tierra":
-    "piano copla ancestral pa la flor.pdf"
-
+  "Tierra": "piano copla ancestral pa la flor.pdf"
 };
 
 const partiturasDiego = {
-
-  "Copla ancestral":
-    "guitarra ancestral.pdf"
-
+  "Copla ancestral": "guitarra ancestral.pdf"
 };
 
-/* =====================================================
-   PARTICIPACIÓN
-===================================================== */
+/* PARTICIPACIÓN */
 
 const participacionPorMusico = {
-
   emiliano: [
     "Mejor conmigo",
     "Grieta",
@@ -794,36 +597,24 @@ const participacionPorMusico = {
     "A pura ushuta"
   ],
 
-  marculi:
-    canciones
-      .slice(2)
-      .map(cancion => cancion.titulo)
-
+  marculi: canciones.slice(2).map(c => c.titulo)
 };
 
-/* =====================================================
-   MOTOR DE AUDIO
-===================================================== */
+/* MOTOR DE AUDIO */
 
 const AudioContextClass =
-  window.AudioContext ||
-  window.webkitAudioContext;
+  window.AudioContext || window.webkitAudioContext;
 
 let contextoAudio = null;
 
 function obtenerContexto() {
-
   if (!contextoAudio) {
     contextoAudio = new AudioContextClass();
   }
-
   return contextoAudio;
-
 }
 
-/* =====================================================
-   ELEMENTOS
-===================================================== */
+/* ELEMENTOS */
 
 const pantallaIngreso =
   document.getElementById("pantallaIngreso");
@@ -858,483 +649,262 @@ const botonSalir =
 const mensajeAliento =
   document.getElementById("mensajeAliento");
 
-/* =====================================================
-   LOGIN
-===================================================== */
+/* INGRESO */
 
-formularioIngreso.addEventListener(
-  "submit",
-  evento => {
+formularioIngreso.addEventListener("submit", evento => {
+  evento.preventDefault();
 
-    evento.preventDefault();
+  const claveIngresada = campoClave.value.trim();
 
-    const claveIngresada =
-      campoClave.value.trim();
+  const idMusico = Object.keys(musicos).find(
+    id => musicos[id].clave === claveIngresada
+  );
 
-    const idMusico =
-      Object.keys(musicos).find(
-        id =>
-          musicos[id].clave === claveIngresada
-      );
-
-    if (!idMusico) {
-
-      mensajeError.textContent =
-        "Clave incorrecta. Intentá nuevamente.";
-
-      campoClave.value = "";
-      campoClave.focus();
-
-      return;
-
-    }
-
-    mensajeError.textContent = "";
+  if (!idMusico) {
+    mensajeError.textContent =
+      "Clave incorrecta. Intentá nuevamente.";
     campoClave.value = "";
-
-    abrirPanel(idMusico);
-
+    campoClave.focus();
+    return;
   }
-);
 
-/* =====================================================
-   ABRIR PANEL
-===================================================== */
+  mensajeError.textContent = "";
+  campoClave.value = "";
+  abrirPanel(idMusico);
+});
+
+/* ABRIR PANEL */
 
 function abrirPanel(idMusico) {
-
-  const musico =
-    musicos[idMusico];
+  const musico = musicos[idMusico];
 
   cambiarFondo(musico.fondo);
 
-  if (idMusico === "flor") {
-
-    mensajeAliento.textContent =
-      "¡ES MÁGICOOOO! ✨🎹";
-
-  } else {
-
-    mensajeAliento.textContent =
-      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
-
-  }
+  mensajeAliento.textContent =
+    idMusico === "flor"
+      ? "¡ES MÁGICOOOO! ✨🎹"
+      : "¡VAMOOOO PAPIRRIIII! 🎸🔥";
 
   detenerAudios();
-
   contenedor.replaceChildren();
 
   nombreMusico.textContent =
-    "PISTAS PARA " +
-    musico.nombre.toUpperCase();
+    "PISTAS PARA " + musico.nombre.toUpperCase();
 
-  nombreInstrumento.textContent =
-    musico.instrumento;
+  nombreInstrumento.textContent = musico.instrumento;
+  iconoInstrumento.textContent = musico.icono;
 
-  iconoInstrumento.textContent =
-    musico.icono;
+  pantallaIngreso.classList.add("oculto");
+  panelMusico.classList.remove("oculto");
 
-  pantallaIngreso
-    .classList
-    .add("oculto");
-
-  panelMusico
-    .classList
-    .remove("oculto");
-
-  canciones.forEach(
-    (cancion, indice) => {
-
-      crearCancion(
-        cancion,
-        indice,
-        idMusico,
-        musico
-      );
-
-    }
-  );
+  canciones.forEach((cancion, indice) => {
+    crearCancion(cancion, indice, idMusico, musico);
+  });
 
   window.scrollTo(0, 0);
-
 }
 
-/* =====================================================
-   DETENER AUDIOS Y VIDEOS
-===================================================== */
+/* DETENER AUDIOS Y VIDEOS */
 
 function detenerAudios() {
+  contenedor.querySelectorAll("audio").forEach(audio => {
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+  });
 
-  const reproductores =
-    contenedor.querySelectorAll("audio");
-
-  reproductores.forEach(
-    reproductor => {
-
-      reproductor.pause();
-      reproductor.removeAttribute("src");
-      reproductor.load();
-
-    }
-  );
-
-  contenedor
-    .querySelectorAll("iframe")
-    .forEach(iframe => {
-
-      iframe.removeAttribute("src");
-
-    });
-
+  contenedor.querySelectorAll("iframe").forEach(iframe => {
+    iframe.removeAttribute("src");
+  });
 }
 
-/* =====================================================
-   SALIR
-===================================================== */
+/* SALIR */
 
-botonSalir.addEventListener(
-  "click",
-  () => {
+botonSalir.addEventListener("click", () => {
+  detenerAudios();
+  contenedor.replaceChildren();
 
-    detenerAudios();
+  panelMusico.classList.add("oculto");
+  pantallaIngreso.classList.remove("oculto");
 
-    contenedor.replaceChildren();
+  cambiarFondo(fondoPrincipal);
 
-    panelMusico
-      .classList
-      .add("oculto");
+  mensajeAliento.textContent =
+    "¡VAMOOOO PAPIRRIIII! 🎸🔥";
 
-    pantallaIngreso
-      .classList
-      .remove("oculto");
+  mensajeError.textContent = "";
+  campoClave.value = "";
+  campoClave.focus();
 
-    cambiarFondo(fondoPrincipal);
+  window.scrollTo(0, 0);
+});
 
-    mensajeAliento.textContent =
-      "¡VAMOOOO PAPIRRIIII! 🎸🔥";
+/* AGREGAR VIDEO */
 
-    mensajeError.textContent = "";
-    campoClave.value = "";
-    campoClave.focus();
+function agregarVideo(seccion, idVideo, titulo) {
+  const bloque = document.createElement("div");
+  bloque.className = "video-ensayo";
 
-    window.scrollTo(0, 0);
-
-  }
-);
-
-/* =====================================================
-   AGREGAR VIDEO
-===================================================== */
-
-function agregarVideo(
-  seccion,
-  idVideo,
-  titulo
-) {
-
-  const bloque =
-    document.createElement("div");
-
-  bloque.className =
-    "video-ensayo";
-
-  const encabezado =
-    document.createElement("h3");
-
+  const encabezado = document.createElement("h3");
   encabezado.textContent =
     "▶ Video de YouTube para ensayar";
 
-  const caja =
-    document.createElement("div");
+  const caja = document.createElement("div");
+  caja.className = "video-contenedor";
 
-  caja.className =
-    "video-contenedor";
-
-  const iframe =
-    document.createElement("iframe");
-
+  const iframe = document.createElement("iframe");
   iframe.src =
-    "https://www.youtube.com/embed/" +
-    idVideo;
-
-  iframe.title =
-    "Video de ensayo: " + titulo;
-
-  iframe.loading =
-    "lazy";
-
+    "https://www.youtube.com/embed/" + idVideo;
+  iframe.title = "Video de ensayo: " + titulo;
+  iframe.loading = "lazy";
   iframe.allow =
     "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-
-  iframe.allowFullscreen =
-    true;
+  iframe.allowFullscreen = true;
 
   caja.appendChild(iframe);
-
-  bloque.append(
-    encabezado,
-    caja
-  );
-
+  bloque.append(encabezado, caja);
   seccion.appendChild(bloque);
-
 }
 
-/* =====================================================
-   AGREGAR PARTITURA
-===================================================== */
+/* AGREGAR PARTITURA */
 
-function agregarPartitura(
-  seccion,
-  archivo,
-  nombreMusico
-) {
+function agregarPartitura(seccion, archivo, nombre) {
+  const bloque = document.createElement("div");
+  bloque.className = "partitura-ensayo";
 
-  const bloque =
-    document.createElement("div");
+  const encabezado = document.createElement("h3");
+  encabezado.textContent = "📖 Partitura para " + nombre;
 
-  bloque.className =
-    "partitura-ensayo";
+  const ruta = archivo
+    .split("/")
+    .map(encodeURIComponent)
+    .join("/");
 
-  const encabezado =
-    document.createElement("h3");
+  const visor = document.createElement("iframe");
+  visor.src = ruta + "#view=FitH";
+  visor.title = "Partitura para " + nombre;
+  visor.loading = "lazy";
 
-  encabezado.textContent =
-    "📖 Partitura para " + nombreMusico;
-
-  const ruta =
-    archivo
-      .split("/")
-      .map(encodeURIComponent)
-      .join("/");
-
-  const visor =
-    document.createElement("iframe");
-
-  visor.src =
-    ruta + "#view=FitH";
-
-  visor.title =
-    "Partitura para " + nombreMusico;
-
-  visor.loading =
-    "lazy";
-
-  const enlace =
-    document.createElement("a");
-
-  enlace.href =
-    ruta;
-
-  enlace.target =
-    "_blank";
-
-  enlace.rel =
-    "noopener noreferrer";
-
+  const enlace = document.createElement("a");
+  enlace.href = ruta;
+  enlace.target = "_blank";
+  enlace.rel = "noopener noreferrer";
   enlace.textContent =
     "📖 Abrir partitura en pantalla completa";
 
-  bloque.append(
-    encabezado,
-    visor,
-    enlace
-  );
-
+  bloque.append(encabezado, visor, enlace);
   seccion.appendChild(bloque);
-
 }
 
-/* =====================================================
-   CREAR CANCIÓN
-===================================================== */
+/* CREAR CANCIÓN */
 
-function crearCancion(
-  cancion,
-  indice,
-  idMusico,
-  musico
-) {
+function crearCancion(cancion, indice, idMusico, musico) {
+  const numero = String(indice + 1).padStart(2, "0");
 
-  const numero =
-    String(indice + 1).padStart(2, "0");
+  const seccion = document.createElement("section");
+  seccion.className = "cancion";
 
-  const seccion =
-    document.createElement("section");
-
-  seccion.className =
-    "cancion";
-
-  const nombre =
-    document.createElement("h2");
-
-  nombre.textContent =
-    numero + " - " + cancion.titulo;
-
+  const nombre = document.createElement("h2");
+  nombre.textContent = numero + " - " + cancion.titulo;
   seccion.appendChild(nombre);
 
-  /* PARTICIPACIÓN */
+  /*
+    THIAGO COMPARTE PARTICIPACIÓN
+    Y PISTAS CON GERMÁN.
+  */
 
-  const participa =
-    idMusico === "german"
-      ? cancion.participaGerman
-      : participacionPorMusico[idMusico]
-          .includes(cancion.titulo);
+  const usaPistasGerman =
+    idMusico === "german" || idMusico === "thiago";
+
+  const participa = usaPistasGerman
+    ? cancion.participaGerman
+    : (participacionPorMusico[idMusico] || [])
+        .includes(cancion.titulo);
 
   if (!participa) {
-
-    const aviso =
-      document.createElement("p");
-
-    aviso.className =
-      "estado";
-
+    const aviso = document.createElement("p");
+    aviso.className = "estado";
     aviso.textContent =
-      musico.nombre +
-      " no participa en este tema.";
+      musico.nombre + " no participa en este tema.";
 
     seccion.appendChild(aviso);
-
     contenedor.appendChild(seccion);
-
     return;
-
   }
 
-  /* ARCHIVO DE AUDIO */
-
-  const archivo =
-    idMusico === "german"
-      ? cancion.archivoGerman
-      : (
-          archivosPorMusico[idMusico][cancion.titulo]
-          || ""
-        );
+  const archivo = usaPistasGerman
+    ? cancion.archivoGerman
+    : (
+        (archivosPorMusico[idMusico] || {})[
+          cancion.titulo
+        ] || ""
+      );
 
   /* REPRODUCTOR */
 
   if (archivo) {
+    const descripcion = document.createElement("p");
+    descripcion.textContent = "Pista completa de ensayo";
 
-    const descripcion =
-      document.createElement("p");
+    const reproductor = document.createElement("audio");
+    reproductor.controls = true;
+    reproductor.preload = "metadata";
 
-    descripcion.textContent =
-      "Pista completa de ensayo";
+    const ruta = archivo.startsWith("audios/")
+      ? archivo
+      : musico.carpeta + "/" + archivo;
 
-    const reproductor =
-      document.createElement("audio");
+    reproductor.src = ruta
+      .split("/")
+      .map(encodeURIComponent)
+      .join("/");
 
-    reproductor.controls =
-      true;
+    const aviso = document.createElement("p");
+    aviso.className = "estado";
+    aviso.textContent = "Pista de ensayo";
 
-    reproductor.preload =
-      "metadata";
+    reproductor.addEventListener("canplay", () => {
+      aviso.textContent =
+        "Audio disponible para escuchar.";
+    });
 
-    const ruta =
-      archivo.startsWith("audios/")
-        ? archivo
-        : musico.carpeta + "/" + archivo;
+    reproductor.addEventListener("error", () => {
+      aviso.textContent =
+        "Audio no disponible. Verificá el archivo.";
+    });
 
-    reproductor.src =
-      ruta
-        .split("/")
-        .map(encodeURIComponent)
-        .join("/");
-
-    const aviso =
-      document.createElement("p");
-
-    aviso.className =
-      "estado";
-
-    aviso.textContent =
-      "Pista de ensayo";
-
-    reproductor.addEventListener(
-      "canplay",
-      () => {
-
-        aviso.textContent =
-          "Audio disponible para escuchar.";
-
-      }
-    );
-
-    reproductor.addEventListener(
-      "error",
-      () => {
-
-        aviso.textContent =
-          "Audio no disponible. Verificá el archivo.";
-
-      }
-    );
-
-    seccion.append(
-      descripcion,
-      reproductor
-    );
-
-    /* TEMAS SIN METRÓNOMO */
+    seccion.append(descripcion, reproductor);
 
     if (cancion.sinMetronomo) {
-
-      const cartel =
-        document.createElement("p");
-
-      cartel.className =
-        "sin-metronomo";
-
-      cartel.textContent =
-        "Estas van sin metrónomo";
-
+      const cartel = document.createElement("p");
+      cartel.className = "sin-metronomo";
+      cartel.textContent = "Estas van sin metrónomo";
       seccion.appendChild(cartel);
-
     } else {
-
-      crearMezclador(
-        reproductor,
-        seccion
-      );
-
+      crearMezclador(reproductor, seccion);
     }
 
     seccion.appendChild(aviso);
-
   } else {
-
-    /* SIN AUDIO, PERO PUEDE TENER VIDEO */
-
-    const aviso =
-      document.createElement("p");
-
-    aviso.className =
-      "estado";
+    const aviso = document.createElement("p");
+    aviso.className = "estado";
 
     const hayVideo =
-      (
-        idMusico === "hernan" &&
-        videosHernan[cancion.titulo]
-      ) ||
-      (
-        idMusico === "flor" &&
-        videosFlor[cancion.titulo]
-      ) ||
-      (
-        idMusico === "diego" &&
-        videosDiego[cancion.titulo]
-      );
+      (idMusico === "hernan" &&
+        videosHernan[cancion.titulo]) ||
+      (idMusico === "flor" &&
+        videosFlor[cancion.titulo]) ||
+      (idMusico === "diego" &&
+        videosDiego[cancion.titulo]);
 
-    aviso.textContent =
-      hayVideo
-        ? "Ensayo con video."
-        : "Audio pendiente de cargar.";
+    aviso.textContent = hayVideo
+      ? "Ensayo con video."
+      : "Audio pendiente de cargar.";
 
     seccion.appendChild(aviso);
-
   }
 
-  /* VIDEOS DEL MÚSICO */
+  /* VIDEOS */
 
   const videos =
     idMusico === "hernan"
@@ -1346,16 +916,14 @@ function crearCancion(
           : {};
 
   if (videos[cancion.titulo]) {
-
     agregarVideo(
       seccion,
       videos[cancion.titulo],
       cancion.titulo
     );
-
   }
 
-  /* PARTITURAS DEL MÚSICO */
+  /* PARTITURAS */
 
   const partituras =
     idMusico === "flor"
@@ -1365,218 +933,108 @@ function crearCancion(
         : {};
 
   if (partituras[cancion.titulo]) {
-
     agregarPartitura(
       seccion,
       partituras[cancion.titulo],
       musico.nombre
     );
-
   }
 
   contenedor.appendChild(seccion);
-
 }
 
-/* =====================================================
-   MEZCLADOR ESTÉREO
-===================================================== */
+/* MEZCLADOR ESTÉREO */
 
-function crearMezclador(
-  reproductor,
-  seccion
-) {
-
-  const contexto =
-    obtenerContexto();
+function crearMezclador(reproductor, seccion) {
+  const contexto = obtenerContexto();
 
   const fuente =
-    contexto.createMediaElementSource(
-      reproductor
-    );
+    contexto.createMediaElementSource(reproductor);
 
-  const divisor =
-    contexto.createChannelSplitter(2);
-
-  const gananciaL =
-    contexto.createGain();
-
-  const gananciaR =
-    contexto.createGain();
-
-  const mezclador =
-    contexto.createChannelMerger(2);
+  const divisor = contexto.createChannelSplitter(2);
+  const gananciaL = contexto.createGain();
+  const gananciaR = contexto.createGain();
+  const mezclador = contexto.createChannelMerger(2);
 
   gananciaL.gain.value = 2;
   gananciaR.gain.value = 2;
 
   fuente.connect(divisor);
+  divisor.connect(gananciaL, 0);
+  divisor.connect(gananciaR, 1);
 
-  divisor.connect(
-    gananciaL,
-    0
-  );
+  gananciaL.connect(mezclador, 0, 0);
+  gananciaR.connect(mezclador, 0, 1);
+  mezclador.connect(contexto.destination);
 
-  divisor.connect(
-    gananciaR,
-    1
-  );
-
-  gananciaL.connect(
-    mezclador,
-    0,
-    0
-  );
-
-  gananciaR.connect(
-    mezclador,
-    0,
-    1
-  );
-
-  mezclador.connect(
-    contexto.destination
-  );
-
-  reproductor.addEventListener(
-    "play",
-    async () => {
-
-      if (
-        contexto.state === "suspended"
-      ) {
-
-        try {
-
-          await contexto.resume();
-
-        } catch (error) {
-
-          console.error(error);
-
-        }
-
+  reproductor.addEventListener("play", async () => {
+    if (contexto.state === "suspended") {
+      try {
+        await contexto.resume();
+      } catch (error) {
+        console.error(error);
       }
-
     }
-  );
+  });
 
-  const panel =
-    document.createElement("div");
+  const panel = document.createElement("div");
+  panel.className = "mezclador";
 
-  panel.className =
-    "mezclador";
+  function crearFader(titulo, etiqueta, ganancia) {
+    const canal = document.createElement("div");
+    canal.className = "canal";
 
-  function crearFader(
-    titulo,
-    etiqueta,
-    ganancia
-  ) {
+    const encabezado = document.createElement("h3");
+    encabezado.textContent = titulo;
 
-    const canal =
-      document.createElement("div");
-
-    canal.className =
-      "canal";
-
-    const encabezado =
-      document.createElement("h3");
-
-    encabezado.textContent =
-      titulo;
-
-    const deslizador =
-      document.createElement("input");
-
-    deslizador.type =
-      "range";
-
-    deslizador.className =
-      "fader";
-
-    deslizador.min =
-      "0";
-
-    deslizador.max =
-      "100";
-
-    deslizador.value =
-      "100";
+    const deslizador = document.createElement("input");
+    deslizador.type = "range";
+    deslizador.className = "fader";
+    deslizador.min = "0";
+    deslizador.max = "100";
+    deslizador.value = "100";
 
     deslizador.setAttribute(
       "aria-label",
       "Volumen canal " + etiqueta
     );
 
-    const valor =
-      document.createElement("div");
+    const valor = document.createElement("div");
+    valor.className = "valor";
+    valor.textContent = "100%";
 
-    valor.className =
-      "valor";
+    const texto = document.createElement("div");
+    texto.className = "etiqueta";
+    texto.textContent = etiqueta;
 
-    valor.textContent =
-      "100%";
+    deslizador.addEventListener("input", () => {
+      const volumen =
+        Number(deslizador.value) / 100 * 2;
 
-    const texto =
-      document.createElement("div");
+      ganancia.gain.value = volumen;
+      valor.textContent = deslizador.value + "%";
+    });
 
-    texto.className =
-      "etiqueta";
-
-    texto.textContent =
-      etiqueta;
-
-    deslizador.addEventListener(
-      "input",
-      () => {
-
-        const volumen =
-          Number(deslizador.value) / 100 * 2;
-
-        ganancia.gain.value =
-          volumen;
-
-        valor.textContent =
-          deslizador.value + "%";
-
-      }
-    );
-
-    canal.append(
-      encabezado,
-      deslizador,
-      valor,
-      texto
-    );
-
+    canal.append(encabezado, deslizador, valor, texto);
     return canal;
-
   }
 
-  const faderL =
-    crearFader(
-      "CANAL L",
-      "IZQUIERDO",
-      gananciaL
-    );
-
-  const faderR =
-    crearFader(
-      "CANAL R",
-      "DERECHO",
-      gananciaR
-    );
-
-  panel.append(
-    faderL,
-    faderR
+  const faderL = crearFader(
+    "CANAL L",
+    "IZQUIERDO",
+    gananciaL
   );
 
-  seccion.appendChild(panel);
+  const faderR = crearFader(
+    "CANAL R",
+    "DERECHO",
+    gananciaR
+  );
 
+  panel.append(faderL, faderR);
+  seccion.appendChild(panel);
 }
 
 </script>
-
 </body>
 </html>
